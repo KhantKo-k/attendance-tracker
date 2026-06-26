@@ -1,0 +1,10 @@
+# release signing key for uploading to play console
+storePassword=
+keyPassword=
+keyAlias=
+storeFile=/path/to/upload-keystore.jks
+
+debugStorePassword=
+debugKeyPassword=
+debugKeyAlias=
+debugStoreFile=/path/to/debug-keystore.jks

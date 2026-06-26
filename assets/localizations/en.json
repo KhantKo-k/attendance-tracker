@@ -1,0 +1,70 @@
+{
+  "landingPage": {
+    "appName": "Starter Kit",
+    "welcome": "An app starter kit for your next project",
+    "login": "Log In",
+    "register": "Register"
+  },
+  "loginPage": {
+    "login": "Log In",
+    "welcome": "Welcome back!",
+    "username": "Username",
+    "password": "Password",
+    "usernameRequired": "Please enter your username",
+    "passwordRequired": "Please enter your password"
+  },
+  "productPage": {
+    "products": "Products",
+    "search": "Search products...",
+    "productDetail": "Product Detail",
+    "noProductData": "No product data available."
+  },
+  "notificationPage": {
+    "notifications": "Notifications",
+    "noNotifications": "No notifications available.",
+    "noNotificationsYet": "No notifications yet.",
+    "couldNotLoadNotifications": "Could not load notifications.",
+    "retry": "Retry"
+  },
+  "profilePage": {
+    "title": "Profile",
+    "gender": "Gender",
+    "logout": "Log out",
+    "noStoredUser": "No saved profile. Please sign in again.",
+    "loadError": "Could not load your profile."
+  },
+  "failures": {
+    "badRequest": {
+      "title": "Error",
+      "message": "Sorry, something went wrong."
+    },
+    "unauthorized": {
+      "title": "Unauthorized",
+      "message": "Please login to continue."
+    },
+    "forbidden": {
+      "title": "Forbidden",
+      "message": "You are not allowed to access this resource."
+    },
+    "notFound": {
+      "title": "Not Found",
+      "message": "The requested resource was not found."
+    },
+    "internalServerError": {
+      "title": "Error",
+      "message": "Sorry, something went wrong."
+    },
+    "serviceUnavailable": {
+      "title": "Service Unavailable",
+      "message": "Sorry, our service is currently unavailable, please try again later."
+    },
+    "network": {
+      "title": "Connection Error",
+      "message": "Please check your internet connection and try again."
+    },
+    "unexpected": {
+      "title": "Error",
+      "message": "Sorry, something went wrong."
+    }
+  }
+}
