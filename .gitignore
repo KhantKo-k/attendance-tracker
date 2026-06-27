@@ -182,13 +182,12 @@ app.*.symbols
 ## env files
 .env.*
 
-# IDE related
-.cursor/*
-.cursor/rules/
-.cursor/rules/*
-.cursor/skills/
-.cursor/skills/*
-.agent/*
+# AI agent / Cursor IDE (local tooling — not shared via repo)
+AGENTS.md
+CLAUDE.md
+.cursor/
+.agent/
+openspec/
 
 
 # FVM Version Cache
@@ -200,3 +199,4 @@ app.*.symbols
 .firebaserc
 **/google-services.json
 **/GoogleService-Info.plist
+
