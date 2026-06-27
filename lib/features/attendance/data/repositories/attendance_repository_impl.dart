@@ -1,14 +1,14 @@
-import 'package:app_starter_kit_bloc/core/error/error_handler_guard.dart';
-import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/core/services/connectivity_service.dart';
-import 'package:app_starter_kit_bloc/core/services/location_service.dart';
-import 'package:app_starter_kit_bloc/core/storage/hive/schema.dart';
-import 'package:app_starter_kit_bloc/features/attendance/data/datasources/attendance_firestore_datasource.dart';
-import 'package:app_starter_kit_bloc/features/attendance/data/datasources/attendance_local_datasource.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/entities/attendance_entities.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/repositories/attendance_repository.dart';
-import 'package:app_starter_kit_bloc/shared/utils/uuid.dart';
+import 'package:attendance_tracker/core/error/error_handler_guard.dart';
+import 'package:attendance_tracker/core/error/exceptions.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/core/services/connectivity_service.dart';
+import 'package:attendance_tracker/core/services/location_service.dart';
+import 'package:attendance_tracker/core/storage/hive/schema.dart';
+import 'package:attendance_tracker/features/attendance/data/datasources/attendance_firestore_datasource.dart';
+import 'package:attendance_tracker/features/attendance/data/datasources/attendance_local_datasource.dart';
+import 'package:attendance_tracker/features/attendance/domain/entities/attendance_entities.dart';
+import 'package:attendance_tracker/features/attendance/domain/repositories/attendance_repository.dart';
+import 'package:attendance_tracker/shared/utils/uuid.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 

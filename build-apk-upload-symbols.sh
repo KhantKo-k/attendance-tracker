@@ -22,11 +22,7 @@ fi
 # Function to get Firebase app ID based on flavor
 get_firebase_app_id() {
   local flavor=$1
-  if [ "$FLAVOR" == "production" ]; then
-    local package_name="com.ksta.app_starter_kit_bloc"
-  else
-    local package_name="com.ksta.app_starter_kit_bloc.$flavor"
-  fi
+  local package_name="com.kkz.attendance_tracker.$flavor"
   local google_services_path="android/app/src/$flavor/google-services.json"
 
   if [ ! -f "$google_services_path" ]; then

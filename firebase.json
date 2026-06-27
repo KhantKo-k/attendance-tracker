@@ -1,5 +1,104 @@
 {
-  "firestore": {
-    "rules": "firestore.rules"
-  },
-  "flutter":{"platforms":{"android":{"default":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:android:84db84c622df4356c83915","fileOutput":"android/app/google-services.json"},"buildConfigurations":{"src/local":{"projectId":"attendance-tracker-d696e","appId":"1:385495735771:android:a31c40d9b48c6ab2e65bfe","fileOutput":"android/app/src/local/google-services.json"},"src/production":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:android:b3a630f678f4f00ec83915","fileOutput":"android/app/src/production/google-services.json"},"src/staging":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:android:a2cc492d9410719ac83915","fileOutput":"android/app/src/staging/google-services.json"}}},"ios":{"default":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:ios:3a9a935f306cf63bc83915","uploadDebugSymbols":true,"fileOutput":"ios/Runner/GoogleService-Info.plist"},"buildConfigurations":{"Debug-local":{"projectId":"attendance-tracker-d696e","appId":"1:385495735771:ios:36888b93d5dc8514e65bfe","uploadDebugSymbols":true,"fileOutput":"ios/Runner/local/GoogleService-Info.plist"},"Debug-production":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:ios:432a668458ee407fc83915","uploadDebugSymbols":true,"fileOutput":"ios/Runner/production/GoogleService-Info.plist"},"Debug-staging":{"projectId":"app-starter-kit-firebase","appId":"1:534178018192:ios:e3cb29eb8557dfd4c83915","uploadDebugSymbols":true,"fileOutput":"ios/Runner/staging/GoogleService-Info.plist"}}},"dart":{"lib/firebase_options.dart":{"projectId":"app-starter-kit-firebase","configurations":{"android":"1:534178018192:android:84db84c622df4356c83915","ios":"1:534178018192:ios:3a9a935f306cf63bc83915"}},"lib/firebase_options_local.dart":{"projectId":"attendance-tracker-d696e","configurations":{"android":"1:385495735771:android:a31c40d9b48c6ab2e65bfe","ios":"1:385495735771:ios:36888b93d5dc8514e65bfe"}},"lib/firebase_options_production.dart":{"projectId":"app-starter-kit-firebase","configurations":{"android":"1:534178018192:android:b3a630f678f4f00ec83915","ios":"1:534178018192:ios:432a668458ee407fc83915"}},"lib/firebase_options_staging.dart":{"projectId":"app-starter-kit-firebase","configurations":{"android":"1:534178018192:android:a2cc492d9410719ac83915","ios":"1:534178018192:ios:e3cb29eb8557dfd4c83915"}}}}}}
+    "firestore": {
+        "rules": "firestore.rules"
+    },
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                ".git",
+                "firebase-debug.log",
+                "firebase-debug.*.log",
+                "*.local"
+            ]
+        }
+    ],
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "attendance-tracker-d696e",
+                    "appId": "1:385495735771:android:a31c40d9b48c6ab2e65bfe",
+                    "fileOutput": "android/app/src/local/google-services.json"
+                },
+                "buildConfigurations": {
+                    "src/local": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:android:a31c40d9b48c6ab2e65bfe",
+                        "fileOutput": "android/app/src/local/google-services.json"
+                    },
+                    "src/production": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:android:8e17631197d896a5e65bfe",
+                        "fileOutput": "android/app/src/production/google-services.json"
+                    },
+                    "src/staging": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:android:2ad6a0b3a7cf261fe65bfe",
+                        "fileOutput": "android/app/src/staging/google-services.json"
+                    }
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "attendance-tracker-d696e",
+                    "appId": "1:385495735771:ios:36888b93d5dc8514e65bfe",
+                    "uploadDebugSymbols": true,
+                    "fileOutput": "ios/Runner/local/GoogleService-Info.plist"
+                },
+                "buildConfigurations": {
+                    "Debug-local": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:ios:36888b93d5dc8514e65bfe",
+                        "uploadDebugSymbols": true,
+                        "fileOutput": "ios/Runner/local/GoogleService-Info.plist"
+                    },
+                    "Debug-production": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:ios:6f11fda2ed824686e65bfe",
+                        "uploadDebugSymbols": true,
+                        "fileOutput": "ios/Runner/production/GoogleService-Info.plist"
+                    },
+                    "Debug-staging": {
+                        "projectId": "attendance-tracker-d696e",
+                        "appId": "1:385495735771:ios:504bb0bd4c3a0b54e65bfe",
+                        "uploadDebugSymbols": true,
+                        "fileOutput": "ios/Runner/staging/GoogleService-Info.plist"
+                    }
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "attendance-tracker-d696e",
+                    "configurations": {
+                        "android": "1:385495735771:android:a31c40d9b48c6ab2e65bfe",
+                        "ios": "1:385495735771:ios:36888b93d5dc8514e65bfe"
+                    }
+                },
+                "lib/firebase_options_local.dart": {
+                    "projectId": "attendance-tracker-d696e",
+                    "configurations": {
+                        "android": "1:385495735771:android:a31c40d9b48c6ab2e65bfe",
+                        "ios": "1:385495735771:ios:36888b93d5dc8514e65bfe"
+                    }
+                },
+                "lib/firebase_options_production.dart": {
+                    "projectId": "attendance-tracker-d696e",
+                    "configurations": {
+                        "android": "1:385495735771:android:8e17631197d896a5e65bfe",
+                        "ios": "1:385495735771:ios:6f11fda2ed824686e65bfe"
+                    }
+                },
+                "lib/firebase_options_staging.dart": {
+                    "projectId": "attendance-tracker-d696e",
+                    "configurations": {
+                        "android": "1:385495735771:android:2ad6a0b3a7cf261fe65bfe",
+                        "ios": "1:385495735771:ios:504bb0bd4c3a0b54e65bfe"
+                    }
+                }
+            }
+        }
+    }
+}

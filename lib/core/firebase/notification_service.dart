@@ -1,8 +1,12 @@
-import 'package:app_starter_kit_bloc/core/logging/app_logger.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/core/firebase/push_notification_navigator.dart';
+import 'package:attendance_tracker/core/logging/app_logger.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
+  NotificationService();
+
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
@@ -13,11 +17,15 @@ class NotificationService {
       android: androidSettings,
       iOS: iosSettings,
     );
-    await _plugin.initialize(settings: settings);
+    await _plugin.initialize(
+      settings: settings,
+      onDidReceiveNotificationResponse: _onLocalNotificationTapped,
+    );
   }
 
   Future<void> handleInitialMessage(RemoteMessage message) async {
     AppLogger().info('Opened from notification: ${message.messageId}');
+    _navigateFromMessage(message);
   }
 
   Future<void> handleForegroundMessage(RemoteMessage message) async {
@@ -39,6 +47,15 @@ class NotificationService {
         ),
         iOS: DarwinNotificationDetails(),
       ),
+      payload: message.data.toString(),
     );
+  }
+
+  void _onLocalNotificationTapped(NotificationResponse response) {
+    AppLogger().info('Local notification tapped: ${response.payload}');
+  }
+
+  void _navigateFromMessage(RemoteMessage message) {
+    serviceLocator.get<PushNotificationNavigator>().navigateFromMessage(message);
   }
 }

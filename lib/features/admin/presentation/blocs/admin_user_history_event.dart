@@ -12,13 +12,28 @@ class AdminUserHistoryStarted extends AdminUserHistoryEvent {
 }
 
 class AdminUserHistoryFilterChanged extends AdminUserHistoryEvent {
-  const AdminUserHistoryFilterChanged({this.startDate, this.endDate});
+  const AdminUserHistoryFilterChanged({
+    this.startDate,
+    this.endDate,
+    this.clearStartDate = false,
+    this.clearEndDate = false,
+    this.clearAll = false,
+  });
 
   final DateTime? startDate;
   final DateTime? endDate;
+  final bool clearStartDate;
+  final bool clearEndDate;
+  final bool clearAll;
 
   @override
-  List<Object?> get props => [startDate, endDate];
+  List<Object?> get props => [
+    startDate,
+    endDate,
+    clearStartDate,
+    clearEndDate,
+    clearAll,
+  ];
 }
 
 class AdminUserHistoryRefreshed extends AdminUserHistoryEvent {

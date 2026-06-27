@@ -1,8 +1,8 @@
-import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
-import 'package:app_starter_kit_bloc/core/navigation/app_router.dart';
-import 'package:app_starter_kit_bloc/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/services/localization_service.dart';
-import 'package:app_starter_kit_bloc/shared/theme/app_theme_cubit.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/core/navigation/app_router.dart';
+import 'package:attendance_tracker/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:attendance_tracker/features/localization/presentation/services/localization_service.dart';
+import 'package:attendance_tracker/shared/theme/app_theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';

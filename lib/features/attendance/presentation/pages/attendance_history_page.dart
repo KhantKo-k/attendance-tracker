@@ -1,12 +1,12 @@
-import 'package:app_starter_kit_bloc/core/error/global_error_handler.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/entities/attendance_entities.dart';
-import 'package:app_starter_kit_bloc/features/attendance/presentation/blocs/attendance_history_bloc.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/shared/theme/app_colors.dart';
-import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/app_bar_settings_actions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/empty_state.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/icon_circle.dart';
+import 'package:attendance_tracker/core/error/global_error_handler.dart';
+import 'package:attendance_tracker/features/attendance/domain/entities/attendance_entities.dart';
+import 'package:attendance_tracker/features/attendance/presentation/blocs/attendance_history_bloc.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/shared/theme/app_colors.dart';
+import 'package:attendance_tracker/shared/theme/dimensions.dart';
+import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
+import 'package:attendance_tracker/shared/widgets/empty_state.dart';
+import 'package:attendance_tracker/shared/widgets/icon_circle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

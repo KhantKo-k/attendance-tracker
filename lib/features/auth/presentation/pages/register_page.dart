@@ -1,10 +1,10 @@
-import 'package:app_starter_kit_bloc/core/error/global_error_handler.dart';
-import 'package:app_starter_kit_bloc/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:app_starter_kit_bloc/features/home/presentation/home_routes.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/app_bar_settings_actions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/app_card.dart';
+import 'package:attendance_tracker/core/error/global_error_handler.dart';
+import 'package:attendance_tracker/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:attendance_tracker/features/home/presentation/home_routes.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/shared/theme/dimensions.dart';
+import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
+import 'package:attendance_tracker/shared/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';

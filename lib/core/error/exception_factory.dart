@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
+import 'package:attendance_tracker/core/error/exceptions.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_core/firebase_core.dart' show FirebaseException;

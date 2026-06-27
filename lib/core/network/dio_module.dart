@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/core/configurations/env_config.dart';
+import 'package:attendance_tracker/core/configurations/env_config.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 

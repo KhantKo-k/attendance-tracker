@@ -78,6 +78,9 @@
     "title": "{name} မှတ်တမ်း",
     "startDate": "စတင်ရက်",
     "endDate": "ပြီးဆုံးရက်",
+    "selectDate": "ရွေးချယ်ရန် နှိပ်ပါ",
+    "clearDate": "ရက်စွဲ ဖယ်ရှားရန်",
+    "clearFilters": "Filter များ ဖယ်ရှားရန်",
     "noRecords": "ရွေးချယ်ထားသော filter များအတွက် မှတ်တမ်း မရှိပါ",
     "checkIn": "Check In",
     "checkOut": "Check Out"

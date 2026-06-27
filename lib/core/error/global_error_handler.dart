@@ -1,8 +1,8 @@
-import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/common_dialog.dart';
+import 'package:attendance_tracker/core/error/exceptions.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/shared/widgets/common_dialog.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

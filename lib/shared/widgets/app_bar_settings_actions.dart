@@ -1,5 +1,5 @@
-import 'package:app_starter_kit_bloc/features/localization/presentation/widgets/language_selector.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/change_theme_icon_button.dart';
+import 'package:attendance_tracker/features/localization/presentation/widgets/language_selector.dart';
+import 'package:attendance_tracker/shared/widgets/change_theme_icon_button.dart';
 import 'package:flutter/material.dart';
 
 class AppBarSettingsActions extends StatelessWidget {

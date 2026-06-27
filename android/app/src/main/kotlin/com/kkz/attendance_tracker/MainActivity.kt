@@ -1,4 +1,4 @@
-package com.ksta.app_starter_kit_bloc
+package com.kkz.attendance_tracker
 
 import io.flutter.embedding.android.FlutterActivity
 

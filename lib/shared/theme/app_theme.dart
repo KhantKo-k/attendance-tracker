@@ -1,5 +1,5 @@
-import 'package:app_starter_kit_bloc/shared/theme/app_colors.dart';
-import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
+import 'package:attendance_tracker/shared/theme/app_colors.dart';
+import 'package:attendance_tracker/shared/theme/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {

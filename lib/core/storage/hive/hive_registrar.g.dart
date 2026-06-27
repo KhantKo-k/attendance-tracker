@@ -3,7 +3,7 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'package:app_starter_kit_bloc/core/storage/hive/hive_adapters.dart';
+import 'package:attendance_tracker/core/storage/hive/hive_adapters.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {

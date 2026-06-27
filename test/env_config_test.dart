@@ -1,5 +1,5 @@
-import 'package:app_starter_kit_bloc/core/configurations/env_config.dart';
-import 'package:app_starter_kit_bloc/flavors.dart';
+import 'package:attendance_tracker/core/configurations/env_config.dart';
+import 'package:attendance_tracker/flavors.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

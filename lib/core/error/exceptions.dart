@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/core/error/error_identity.dart';
+import 'package:attendance_tracker/core/error/error_identity.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

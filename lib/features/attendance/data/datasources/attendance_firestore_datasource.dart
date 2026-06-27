@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/features/attendance/domain/entities/attendance_entities.dart';
+import 'package:attendance_tracker/features/attendance/domain/entities/attendance_entities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 

@@ -1,6 +1,6 @@
-import 'package:app_starter_kit_bloc/core/error/exception_factory.dart';
-import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
-import 'package:app_starter_kit_bloc/core/logging/app_logger.dart';
+import 'package:attendance_tracker/core/error/exception_factory.dart';
+import 'package:attendance_tracker/core/error/exceptions.dart';
+import 'package:attendance_tracker/core/logging/app_logger.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 

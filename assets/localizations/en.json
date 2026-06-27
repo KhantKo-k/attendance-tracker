@@ -78,6 +78,9 @@
     "title": "{name} History",
     "startDate": "Start date",
     "endDate": "End date",
+    "selectDate": "Tap to select",
+    "clearDate": "Clear date",
+    "clearFilters": "Clear filters",
     "noRecords": "No records for selected filters",
     "checkIn": "Check In",
     "checkOut": "Check Out"

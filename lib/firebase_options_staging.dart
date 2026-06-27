@@ -50,19 +50,18 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDR-NP_a3k3POHE6p4qsu-kRzfJlaTguRA',
-    appId: '1:534178018192:android:a2cc492d9410719ac83915',
-    messagingSenderId: '534178018192',
-    projectId: 'app-starter-kit-firebase',
-    storageBucket: 'app-starter-kit-firebase.firebasestorage.app',
+    apiKey: 'AIzaSyDteKRD-KBfMV7-VQfgRWBWi9SBYMnAeTY',
+    appId: '1:385495735771:android:2ad6a0b3a7cf261fe65bfe',
+    messagingSenderId: '385495735771',
+    projectId: 'attendance-tracker-d696e',
+    storageBucket: 'attendance-tracker-d696e.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBI7YmQlWVFVUBncERYr2undd-J4DmWuuI',
-    appId: '1:534178018192:ios:e3cb29eb8557dfd4c83915',
-    messagingSenderId: '534178018192',
-    projectId: 'app-starter-kit-firebase',
-    storageBucket: 'app-starter-kit-firebase.firebasestorage.app',
-    iosBundleId: 'com.onenex.app-starter-kit-bloc.uat',
+    apiKey: 'AIzaSyCSSNIdd-x3bWkH14rm-b_R9KZC5eJEF-A',
+    appId: '1:385495735771:ios:504bb0bd4c3a0b54e65bfe',
+    messagingSenderId: '385495735771',
+    projectId: 'attendance-tracker-d696e',
+    storageBucket: 'attendance-tracker-d696e.firebasestorage.app',
+    iosBundleId: 'com.kkz.attendance-tracker.staging',
   );
 }

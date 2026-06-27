@@ -26,6 +26,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Firebase Cloud Functions
+functions/node_modules/
+
 # Obfuscation related
 app.*.map.json
 .crashlytics/

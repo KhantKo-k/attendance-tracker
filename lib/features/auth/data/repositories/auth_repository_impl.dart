@@ -1,8 +1,8 @@
-import 'package:app_starter_kit_bloc/core/error/error_handler_guard.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user_role.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/repositories/auth_repository.dart';
+import 'package:attendance_tracker/core/error/error_handler_guard.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user_role.dart';
+import 'package:attendance_tracker/features/auth/domain/repositories/auth_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;

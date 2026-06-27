@@ -1,6 +1,6 @@
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user_role.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user_role.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

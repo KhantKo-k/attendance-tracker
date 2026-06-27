@@ -54,7 +54,9 @@ import '../../features/localization/domain/usecases/get_translations_use_case.da
     as _i755;
 import '../../features/localization/presentation/services/localization_service.dart'
     as _i219;
+import '../firebase/admin_push_notification_service.dart' as _i428;
 import '../firebase/firebase_module.dart' as _i1055;
+import '../firebase/push_notification_navigator.dart' as _i550;
 import '../navigation/app_router.dart' as _i630;
 import '../network/dio_content_type_interceptor.dart' as _i658;
 import '../network/dio_module.dart' as _i614;
@@ -96,6 +98,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => storageModule.secureStorage,
     );
+    gh.lazySingleton<_i428.AdminPushNotificationService>(
+      () => _i428.AdminPushNotificationService(),
+    );
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.lazySingleton<_i895.Connectivity>(() => connectivityModule.connectivity);
@@ -104,44 +109,43 @@ extension GetItInjectableX on _i174.GetIt {
       () => dioModule.getPublicApiDioClient(),
       instanceName: 'publicApiClient',
     );
-    gh.lazySingleton<_i361.Dio>(
-      () => dioModule.getFirebaseApiDioClient(),
-      instanceName: 'firebaseApiClient',
-    );
     gh.factory<_i787.AuthRepository>(
       () => _i153.AuthRepositoryImpl(
         firebaseAuth: gh<_i59.FirebaseAuth>(),
         firestore: gh<_i974.FirebaseFirestore>(),
       ),
     );
+    gh.lazySingleton<_i361.Dio>(
+      () => dioModule.getFirebaseApiDioClient(),
+      instanceName: 'firebaseApiClient',
+    );
+    gh.factory<_i727.RemoteLocalizationApi>(
+      () => _i727.RemoteLocalizationApiImpl(
+        gh<_i361.Dio>(instanceName: 'firebaseApiClient'),
+      ),
+      registerFor: {_production, _local, _staging},
+    );
     gh.factory<_i808.LocalLocalizationDatasource>(
       () => const _i808.LocalLocalizationDatasourceImpl(),
-    );
-    gh.lazySingleton<_i47.ConnectivityService>(
-      () => _i47.ConnectivityService(gh<_i895.Connectivity>()),
-    );
-    gh.factory<_i673.AttendanceFirestoreDatasource>(
-      () => _i673.AttendanceFirestoreDatasourceImpl(
-        firestore: gh<_i974.FirebaseFirestore>(),
-      ),
-    );
-    gh.factory<_i583.AdminRepository>(
-      () => _i335.AdminRepositoryImpl(
-        firestore: gh<_i974.FirebaseFirestore>(),
-        attendanceDatasource: gh<_i673.AttendanceFirestoreDatasource>(),
-      ),
     );
     gh.factory<_i673.AttendanceLocalDatasource>(
       () => _i673.AttendanceLocalDatasourceImpl(
         pendingBox: gh<_i738.Box<_i787.PendingAttendanceLog>>(),
       ),
     );
-    gh.factory<_i477.AttendanceRepository>(
-      () => _i719.AttendanceRepositoryImpl(
-        firestoreDatasource: gh<_i673.AttendanceFirestoreDatasource>(),
-        localDatasource: gh<_i673.AttendanceLocalDatasource>(),
-        locationService: gh<_i669.LocationService>(),
-        connectivityService: gh<_i47.ConnectivityService>(),
+    gh.lazySingleton<_i47.ConnectivityService>(
+      () => _i47.ConnectivityService(gh<_i895.Connectivity>()),
+    );
+    gh.factory<_i807.LocalizationRepository>(
+      () => _i533.LocalizationRepositoryImpl(
+        api: gh<_i727.RemoteLocalizationApi>(),
+        local: gh<_i808.LocalLocalizationDatasource>(),
+        cache: gh<_i195.LocalizationCacheManager>(),
+      ),
+    );
+    gh.factory<_i673.AttendanceFirestoreDatasource>(
+      () => _i673.AttendanceFirestoreDatasourceImpl(
+        firestore: gh<_i974.FirebaseFirestore>(),
       ),
     );
     gh.factory<_i336.LoginUseCase>(
@@ -164,22 +168,19 @@ extension GetItInjectableX on _i174.GetIt {
         registerUseCase: gh<_i336.RegisterUseCase>(),
         logoutUseCase: gh<_i336.LogoutUseCase>(),
         watchAuthUserUseCase: gh<_i336.WatchAuthUserUseCase>(),
+        adminPushNotificationService: gh<_i428.AdminPushNotificationService>(),
       ),
     );
-    gh.factory<_i727.RemoteLocalizationApi>(
-      () => _i727.RemoteLocalizationApiImpl(
-        gh<_i361.Dio>(instanceName: 'firebaseApiClient'),
+    gh.factory<_i583.AdminRepository>(
+      () => _i335.AdminRepositoryImpl(
+        firestore: gh<_i974.FirebaseFirestore>(),
+        attendanceDatasource: gh<_i673.AttendanceFirestoreDatasource>(),
       ),
-      registerFor: {_production, _local, _staging},
+    );
+    gh.factory<_i755.GetTranslationUsecase>(
+      () => _i755.GetTranslationUsecase(gh<_i807.LocalizationRepository>()),
     );
     gh.singleton<_i630.AppRouter>(() => _i630.AppRouter(gh<_i85.AuthBloc>()));
-    gh.factory<_i807.LocalizationRepository>(
-      () => _i533.LocalizationRepositoryImpl(
-        api: gh<_i727.RemoteLocalizationApi>(),
-        local: gh<_i808.LocalLocalizationDatasource>(),
-        cache: gh<_i195.LocalizationCacheManager>(),
-      ),
-    );
     gh.factory<_i228.GetDashboardStatsUseCase>(
       () => _i228.GetDashboardStatsUseCase(
         adminRepository: gh<_i583.AdminRepository>(),
@@ -192,6 +193,23 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i228.GetUserAttendanceHistoryUseCase(
         adminRepository: gh<_i583.AdminRepository>(),
       ),
+    );
+    gh.factory<_i477.AttendanceRepository>(
+      () => _i719.AttendanceRepositoryImpl(
+        firestoreDatasource: gh<_i673.AttendanceFirestoreDatasource>(),
+        localDatasource: gh<_i673.AttendanceLocalDatasource>(),
+        locationService: gh<_i669.LocationService>(),
+        connectivityService: gh<_i47.ConnectivityService>(),
+      ),
+    );
+    gh.lazySingleton<_i219.LocalizationService>(
+      () => _i219.LocalizationService(
+        gh<_i755.GetTranslationUsecase>(),
+        gh<_i195.LocalizationCacheManager>(),
+      ),
+    );
+    gh.lazySingleton<_i550.PushNotificationNavigator>(
+      () => _i550.PushNotificationNavigator(gh<_i630.AppRouter>()),
     );
     gh.factory<_i302.GetMyAttendanceHistoryUseCase>(
       () => _i302.GetMyAttendanceHistoryUseCase(
@@ -216,15 +234,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i302.SyncPendingAttendanceUseCase>(
       () => _i302.SyncPendingAttendanceUseCase(
         attendanceRepository: gh<_i477.AttendanceRepository>(),
-      ),
-    );
-    gh.factory<_i755.GetTranslationUsecase>(
-      () => _i755.GetTranslationUsecase(gh<_i807.LocalizationRepository>()),
-    );
-    gh.lazySingleton<_i219.LocalizationService>(
-      () => _i219.LocalizationService(
-        gh<_i755.GetTranslationUsecase>(),
-        gh<_i195.LocalizationCacheManager>(),
       ),
     );
     return this;

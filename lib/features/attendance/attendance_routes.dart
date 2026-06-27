@@ -1,10 +1,10 @@
-import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/use_cases/attendance_use_cases.dart';
-import 'package:app_starter_kit_bloc/features/attendance/presentation/blocs/attendance_history_bloc.dart';
-import 'package:app_starter_kit_bloc/features/attendance/presentation/blocs/attendance_home_bloc.dart';
-import 'package:app_starter_kit_bloc/features/attendance/presentation/pages/attendance_history_page.dart';
-import 'package:app_starter_kit_bloc/features/attendance/presentation/pages/attendance_home_page.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/features/attendance/domain/use_cases/attendance_use_cases.dart';
+import 'package:attendance_tracker/features/attendance/presentation/blocs/attendance_history_bloc.dart';
+import 'package:attendance_tracker/features/attendance/presentation/blocs/attendance_home_bloc.dart';
+import 'package:attendance_tracker/features/attendance/presentation/pages/attendance_history_page.dart';
+import 'package:attendance_tracker/features/attendance/presentation/pages/attendance_home_page.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 

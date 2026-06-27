@@ -1,6 +1,6 @@
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/entities/attendance_entities.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/use_cases/attendance_use_cases.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/features/attendance/domain/entities/attendance_entities.dart';
+import 'package:attendance_tracker/features/attendance/domain/use_cases/attendance_use_cases.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

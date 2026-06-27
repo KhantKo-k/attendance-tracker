@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/features/localization/presentation/services/localization_service.dart';
+import 'package:attendance_tracker/features/localization/presentation/services/localization_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

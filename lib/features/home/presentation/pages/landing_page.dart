@@ -1,10 +1,10 @@
-import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
-import 'package:app_starter_kit_bloc/core/navigation/app_router.dart';
-import 'package:app_starter_kit_bloc/features/auth/auth_routes.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
-import 'package:app_starter_kit_bloc/shared/utils/extensions/string_extensions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/app_bar_settings_actions.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/core/navigation/app_router.dart';
+import 'package:attendance_tracker/features/auth/auth_routes.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/shared/theme/dimensions.dart';
+import 'package:attendance_tracker/shared/utils/extensions/string_extensions.dart';
+import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {

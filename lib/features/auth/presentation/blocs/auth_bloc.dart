@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/use_cases/auth_use_cases.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/core/firebase/admin_push_notification_service.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/features/auth/domain/use_cases/auth_use_cases.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -17,9 +18,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required RegisterUseCase registerUseCase,
     required LogoutUseCase logoutUseCase,
     required WatchAuthUserUseCase watchAuthUserUseCase,
+    required AdminPushNotificationService adminPushNotificationService,
   }) : _loginUseCase = loginUseCase,
        _registerUseCase = registerUseCase,
        _logoutUseCase = logoutUseCase,
+       _adminPushNotificationService = adminPushNotificationService,
        super(const AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
     on<RegisterRequested>(_onRegisterRequested);
@@ -34,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase _loginUseCase;
   final RegisterUseCase _registerUseCase;
   final LogoutUseCase _logoutUseCase;
+  final AdminPushNotificationService _adminPushNotificationService;
   StreamSubscription<User?>? _authSubscription;
 
   Future<void> _onLoginRequested(
@@ -42,9 +46,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(const AuthLoading());
     final result = await _loginUseCase(event.email, event.password);
-    result.fold(
-      (user) => emit(Authenticated(user: user)),
-      (failure) => emit(AuthFailure(failure: failure)),
+    await result.fold<Future<void>>(
+      (user) async {
+        emit(Authenticated(user: user));
+        unawaited(_adminPushNotificationService.syncForUser(user));
+      },
+      (failure) async {
+        emit(AuthFailure(failure: failure));
+      },
     );
   }
 
@@ -58,9 +67,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: event.email,
       password: event.password,
     );
-    result.fold(
-      (user) => emit(Authenticated(user: user)),
-      (failure) => emit(AuthFailure(failure: failure)),
+    await result.fold<Future<void>>(
+      (user) async {
+        emit(Authenticated(user: user));
+        unawaited(_adminPushNotificationService.syncForUser(user));
+      },
+      (failure) async {
+        emit(AuthFailure(failure: failure));
+      },
     );
   }
 
@@ -68,20 +82,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LogoutRequested event,
     Emitter<AuthState> emit,
   ) async {
+    unawaited(_adminPushNotificationService.unsubscribeFromAdminTopic());
     await _logoutUseCase();
     emit(const Unauthenticated());
   }
 
-  void _onAuthUserChanged(AuthUserChanged event, Emitter<AuthState> emit) {
+  Future<void> _onAuthUserChanged(
+    AuthUserChanged event,
+    Emitter<AuthState> emit,
+  ) async {
     if (state is AuthLoading) {
       return;
     }
+
     final user = event.user;
     if (user == null) {
+      if (state is Authenticated) {
+        unawaited(_adminPushNotificationService.unsubscribeFromAdminTopic());
+      }
       emit(const Unauthenticated());
       return;
     }
+
     emit(Authenticated(user: user));
+    unawaited(_adminPushNotificationService.syncForUser(user));
   }
 
   @override

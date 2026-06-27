@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
+import 'package:attendance_tracker/core/error/exceptions.dart';
 
 class Failure {
   final AppException exception;

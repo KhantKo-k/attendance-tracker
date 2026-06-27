@@ -1,7 +1,7 @@
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/features/admin/domain/use_cases/admin_use_cases.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/entities/attendance_entities.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/features/admin/domain/use_cases/admin_use_cases.dart';
+import 'package:attendance_tracker/features/attendance/domain/entities/attendance_entities.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,8 +37,29 @@ class AdminUserHistoryBloc
     AdminUserHistoryFilterChanged event,
     Emitter<AdminUserHistoryState> emit,
   ) async {
-    _startDate = event.startDate;
-    _endDate = event.endDate;
+    if (event.clearAll) {
+      _startDate = null;
+      _endDate = null;
+    } else {
+      if (event.clearStartDate) {
+        _startDate = null;
+      } else if (event.startDate != null) {
+        _startDate = event.startDate;
+      }
+
+      if (event.clearEndDate) {
+        _endDate = null;
+      } else if (event.endDate != null) {
+        _endDate = event.endDate;
+      }
+    }
+
+    if (_startDate != null &&
+        _endDate != null &&
+        _startDate!.isAfter(_endDate!)) {
+      _endDate = _startDate;
+    }
+
     await _loadHistory(emit);
   }
 
@@ -50,15 +71,29 @@ class AdminUserHistoryBloc
   }
 
   Future<void> _loadHistory(Emitter<AdminUserHistoryState> emit) async {
-    emit(const AdminUserHistoryLoading());
+    emit(
+      AdminUserHistoryLoading(startDate: _startDate, endDate: _endDate),
+    );
     final result = await _getUserAttendanceHistoryUseCase(
       userId: _user.id,
       startDate: _startDate,
       endDate: _endDate,
     );
     result.fold(
-      (logs) => emit(AdminUserHistoryLoaded(logs: logs)),
-      (failure) => emit(AdminUserHistoryFailure(failure: failure)),
+      (logs) => emit(
+        AdminUserHistoryLoaded(
+          logs: logs,
+          startDate: _startDate,
+          endDate: _endDate,
+        ),
+      ),
+      (failure) => emit(
+        AdminUserHistoryFailure(
+          failure: failure,
+          startDate: _startDate,
+          endDate: _endDate,
+        ),
+      ),
     );
   }
 }

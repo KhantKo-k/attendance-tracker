@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/features/auth/domain/entities/user_role.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user_role.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';

@@ -1,9 +1,9 @@
-import 'package:app_starter_kit_bloc/core/di/environments.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/core/network/dio_module.dart';
-import 'package:app_starter_kit_bloc/core/network/retrofit_api_call_adapter.dart';
-import 'package:app_starter_kit_bloc/features/localization/data/dtos/localization_dtos.dart';
-import 'package:app_starter_kit_bloc/features/localization/localization_urls.dart';
+import 'package:attendance_tracker/core/di/environments.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/core/network/dio_module.dart';
+import 'package:attendance_tracker/core/network/retrofit_api_call_adapter.dart';
+import 'package:attendance_tracker/features/localization/data/dtos/localization_dtos.dart';
+import 'package:attendance_tracker/features/localization/localization_urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';

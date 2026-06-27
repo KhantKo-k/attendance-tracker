@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:app_starter_kit_bloc/app.dart';
-import 'package:app_starter_kit_bloc/core/configurations/env_config.dart';
-import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
-import 'package:app_starter_kit_bloc/core/error/error_reporter.dart';
-import 'package:app_starter_kit_bloc/core/firebase/fcm_service.dart';
-import 'package:app_starter_kit_bloc/core/services/connectivity_service.dart';
-import 'package:app_starter_kit_bloc/features/attendance/domain/use_cases/attendance_use_cases.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/services/localization_service.dart';
-import 'package:app_starter_kit_bloc/flavors.dart';
+import 'package:attendance_tracker/app.dart';
+import 'package:attendance_tracker/core/configurations/env_config.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/core/error/error_reporter.dart';
+import 'package:attendance_tracker/core/services/connectivity_service.dart';
+import 'package:attendance_tracker/features/attendance/domain/use_cases/attendance_use_cases.dart';
+import 'package:attendance_tracker/features/localization/presentation/services/localization_service.dart';
+import 'package:attendance_tracker/flavors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:attendance_tracker/core/firebase/fcm_service.dart' show FcmService;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +26,10 @@ void main() async {
 
       await _initFirebase();
 
+      // FirebaseMessaging.onBackgroundMessage(
+      //   firebaseMessagingBackgroundHandler,
+      // );
+
       await _initFirebaseCrashlytics();
 
       FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -33,6 +37,8 @@ void main() async {
       _initAppFlavor();
 
       _initEnvConfig();
+
+      await _initFcmService();
 
       await configureDependencies();
 
@@ -42,12 +48,8 @@ void main() async {
 
       await serviceLocator.get<LocalizationService>().initialize();
 
-
-      await _initFcmService();
-
       FlutterNativeSplash.remove();
       runApp(const App());
-      unawaited(FcmService().requestPermission());
     },
     (error, stackTrace) {
       ErrorReporter().reportException(error, stackTrace);
