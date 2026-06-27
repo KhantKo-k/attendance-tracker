@@ -1,5 +1,7 @@
 import 'package:app_starter_kit_bloc/core/error/exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 
 class AppExceptionFactory {
   static AppException identifyException(
@@ -7,6 +9,12 @@ class AppExceptionFactory {
     StackTrace? stackTrace,
   ) {
     switch (exception) {
+      case firebase_auth.FirebaseAuthException():
+        return _fromFirebaseAuthException(exception, stackTrace);
+      case FirebaseException() when exception.plugin == 'cloud_firestore':
+        return _fromFirestoreException(exception, stackTrace);
+      case FirebaseException() when exception.plugin == 'firebase_storage':
+        return _fromFirebaseStorageException(exception, stackTrace);
       case DioException():
         return _fromDioException(exception, stackTrace);
       case FormatException():
@@ -18,6 +26,42 @@ class AppExceptionFactory {
       default:
         return _fromUnknownException(exception, stackTrace);
     }
+  }
+
+  static AppException _fromFirebaseAuthException(
+    firebase_auth.FirebaseAuthException exception,
+    StackTrace? stackTrace,
+  ) {
+    return FirebaseAuthAppException(
+      exception: exception,
+      stackTrace: stackTrace,
+      code: exception.code,
+      firebaseMessage: exception.message,
+    );
+  }
+
+  static AppException _fromFirestoreException(
+    FirebaseException exception,
+    StackTrace? stackTrace,
+  ) {
+    return FirebaseFirestoreAppException(
+      exception: exception,
+      stackTrace: stackTrace,
+      code: exception.code,
+      firebaseMessage: exception.message,
+    );
+  }
+
+  static AppException _fromFirebaseStorageException(
+    FirebaseException exception,
+    StackTrace? stackTrace,
+  ) {
+    return FirebaseStorageAppException(
+      exception: exception,
+      stackTrace: stackTrace,
+      code: exception.code,
+      firebaseMessage: exception.message,
+    );
   }
 
   static AppException _fromDioException(

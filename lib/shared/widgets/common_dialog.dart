@@ -92,8 +92,8 @@ class CommonDialog {
               actionsPadding: const EdgeInsets.only(
                   bottom: 4, top: 4, left: 16, right: 16),
               actionsAlignment: MainAxisAlignment.center,
-              shadowColor: Colors.black87,
-              backgroundColor: Colors.white,
+              shadowColor: Theme.of(context).shadowColor,
+              backgroundColor: Theme.of(context).colorScheme.surface,
             ),
           ),
         );
@@ -195,8 +195,8 @@ class CommonDialog {
             actionsPadding: const EdgeInsets.only(
                 bottom: 4, top: 4, left: 16, right: 16),
             actionsAlignment: MainAxisAlignment.center,
-            shadowColor: Colors.black87,
-            backgroundColor: Colors.white,
+            shadowColor: Theme.of(context).shadowColor,
+            backgroundColor: Theme.of(context).colorScheme.surface,
           ),
         );
       },
@@ -214,7 +214,7 @@ class CommonDialog {
           width: 80.0,
           height: 80.0,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: const CupertinoActivityIndicator(
@@ -355,7 +355,7 @@ class CommonDialog {
             actionsPadding: const EdgeInsets.only(
                 bottom: 4, top: 4, left: 16, right: 16),
             actionsAlignment: MainAxisAlignment.center,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.surface,
           ),
         );
       },
@@ -394,7 +394,7 @@ class CommonDialog {
                   child: Scrollbar(
                     thumbVisibility: true,
                     child: SingleChildScrollView(
-                      child: _buildScrollableContent(messages),
+                      child: _buildScrollableContent(context, messages),
                     ),
                   ),
                 ),
@@ -425,13 +425,17 @@ class CommonDialog {
             actionsPadding: const EdgeInsets.only(
                 bottom: 4, top: 4, left: 16, right: 16),
             actionsAlignment: MainAxisAlignment.center,
+            backgroundColor: Theme.of(context).colorScheme.surface,
           ),
         );
       },
     );
   }
 
-  static Widget _buildScrollableContent(List<String> messages) {
+  static Widget _buildScrollableContent(
+    BuildContext context,
+    List<String> messages,
+  ) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -440,13 +444,18 @@ class CommonDialog {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "\u2022",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              Text(
+                '\u2022',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(message),
+                child: Text(
+                  message,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
               ),
             ],
           ),

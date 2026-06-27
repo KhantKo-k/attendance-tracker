@@ -1,140 +1,95 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "App Starter Kit Mock (debug)",
+            "name": "Attendance Tracker Local (debug)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=mock"
+                "--flavor=local",
+                "--dart-define=appFlavor=local"
             ]
         },
         {
-            "name": "App Starter Kit Mock (profile)",
+            "name": "Attendance Tracker Local (profile)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=mock"
+                "--flavor=local",
+                "--dart-define=appFlavor=local",
+                "--obfuscate"
             ],
             "flutterMode": "profile"
         },
         {
-            "name": "App Starter Kit Mock (release)",
+            "name": "Attendance Tracker Local (release)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=mock"
-            ],
-            "flutterMode": "release"
-        },
-        {
-            "name": "App Starter Kit Dev (debug)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=dev",
-            ]
-        },
-        {
-            "name": "App Starter Kit Dev (profile)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=dev --obfuscate",
-            ],
-            "flutterMode": "profile"
-        },
-        {
-            "name": "App Starter Kit Dev (release)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=dev",
+                "--flavor=local",
+                "--dart-define=appFlavor=local",
                 "--obfuscate",
                 "--split-debug-info=build/app/outputs/symbols"
             ],
             "flutterMode": "release"
         },
         {
-            "name": "App Starter Kit UAT (debug)",
+            "name": "Attendance Tracker Staging (debug)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=uat"
+                "--flavor=staging",
+                "--dart-define=appFlavor=staging"
             ]
         },
         {
-            "name": "App Starter Kit UAT (profile)",
+            "name": "Attendance Tracker Staging (profile)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=uat"
+                "--flavor=staging",
+                "--dart-define=appFlavor=staging"
             ],
             "flutterMode": "profile"
         },
         {
-            "name": "App Starter Kit UAT (release)",
+            "name": "Attendance Tracker Staging (release)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=uat"
+                "--flavor=staging",
+                "--dart-define=appFlavor=staging"
             ],
             "flutterMode": "release"
         },
         {
-            "name": "App Starter Kit Preprod (debug)",
+            "name": "Attendance Tracker Production (debug)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=preprod",
+                "--flavor=production",
+                "--dart-define=appFlavor=production"
             ]
         },
         {
-            "name": "App Starter Kit Preprod (profile)",
+            "name": "Attendance Tracker Production (profile)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=preprod",
+                "--flavor=production",
+                "--dart-define=appFlavor=production"
             ],
             "flutterMode": "profile"
         },
         {
-            "name": "App Starter Kit Preprod (release)",
+            "name": "Attendance Tracker Production (release)",
             "request": "launch",
             "type": "dart",
             "args": [
-                "--flavor=preprod"
+                "--flavor=production",
+                "--dart-define=appFlavor=production"
             ],
             "flutterMode": "release"
-        },
-        {
-            "name": "App Starter Kit Prod (debug)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=prod"
-            ]
-        },
-        {
-            "name": "App Starter Kit Prod (profile)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=prod"
-            ],
-            "flutterMode": "profile"
-        },
-        {
-            "name": "App Starter Kit Prod (release)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--flavor=prod"
-            ],
-            "flutterMode": "release"
-        },
+        }
     ]
 }

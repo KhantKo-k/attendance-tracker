@@ -151,12 +151,12 @@ dart run flutter_native_splash:create --path=flutter_native_splash.yaml
 
 **Android APK**:
 ```bash
-flutter build apk --flavor dev --dart-define=appEnv=dev
+flutter build apk --flavor local --dart-define=appFlavor=local
 ```
 
 **iOS**:
 ```bash
-flutter build ios --flavor dev --dart-define=appEnv=dev
+flutter build ios --flavor local --dart-define=appFlavor=local
 ```
 
 ### Production Builds
@@ -166,15 +166,15 @@ The project includes build scripts for production builds with automatic symbol u
 **Android**:
 ```bash
 # Build APK
-./build-apk-upload-symbols.sh apk prod
+./build-apk-upload-symbols.sh apk production
 
 # Build App Bundle (for Play Store)
-./build-apk-upload-symbols.sh appbundle prod
+./build-apk-upload-symbols.sh appbundle production
 ```
 
 **iOS**:
 ```bash
-./build-ipa-upload-symbols.sh prod
+./build-ipa-upload-symbols.sh production
 ```
 
 These scripts will:

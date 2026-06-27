@@ -6,39 +6,48 @@ part of 'hive_adapters.dart';
 // AdaptersGenerator
 // **************************************************************************
 
-class NoteAdapter extends TypeAdapter<Note> {
+class PendingAttendanceLogAdapter extends TypeAdapter<PendingAttendanceLog> {
   @override
-  final typeId = 0;
+  final typeId = 1;
 
   @override
-  Note read(BinaryReader reader) {
+  PendingAttendanceLog read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Note(
+    return PendingAttendanceLog(
       id: fields[0] as String,
-      title: fields[1] as String,
-      content: fields[2] as String,
-      createdAt: fields[3] as DateTime,
-      updatedAt: fields[5] as DateTime,
+      userId: fields[1] as String,
+      userName: fields[2] as String,
+      type: fields[3] as String,
+      timestamp: fields[4] as DateTime,
+      latitude: (fields[5] as num).toDouble(),
+      longitude: (fields[6] as num).toDouble(),
+      address: fields[7] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Note obj) {
+  void write(BinaryWriter writer, PendingAttendanceLog obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.title)
+      ..write(obj.userId)
       ..writeByte(2)
-      ..write(obj.content)
+      ..write(obj.userName)
       ..writeByte(3)
-      ..write(obj.createdAt)
+      ..write(obj.type)
+      ..writeByte(4)
+      ..write(obj.timestamp)
       ..writeByte(5)
-      ..write(obj.updatedAt);
+      ..write(obj.latitude)
+      ..writeByte(6)
+      ..write(obj.longitude)
+      ..writeByte(7)
+      ..write(obj.address);
   }
 
   @override
@@ -47,7 +56,7 @@ class NoteAdapter extends TypeAdapter<Note> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is NoteAdapter &&
+      other is PendingAttendanceLogAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

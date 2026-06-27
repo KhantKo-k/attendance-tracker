@@ -1,9 +1,7 @@
 import 'package:app_starter_kit_bloc/core/configurations/base.env.dart';
-import 'package:app_starter_kit_bloc/core/configurations/dev.env.dart';
-import 'package:app_starter_kit_bloc/core/configurations/mock.env.dart';
-import 'package:app_starter_kit_bloc/core/configurations/uat.env.dart';
-import 'package:app_starter_kit_bloc/core/configurations/preprod.env.dart';
-import 'package:app_starter_kit_bloc/core/configurations/prod.env.dart';
+import 'package:app_starter_kit_bloc/core/configurations/local.env.dart';
+import 'package:app_starter_kit_bloc/core/configurations/production.env.dart';
+import 'package:app_starter_kit_bloc/core/configurations/staging.env.dart';
 import 'package:app_starter_kit_bloc/flavors.dart';
 
 class EnvConfig {
@@ -42,10 +40,8 @@ class EnvConfig {
   }
 
   BaseEnv getEnv() => switch (F.appFlavor) {
-    Flavor.mock => MockEnv(),
-    Flavor.dev => DevEnv(),
-    Flavor.uat => UatEnv(),
-    Flavor.preprod => PreprodEnv(),
-    Flavor.prod => ProdEnv(),
+    Flavor.local => LocalEnv(),
+    Flavor.staging => StagingEnv(),
+    Flavor.production => ProductionEnv(),
   };
 }

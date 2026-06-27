@@ -329,6 +329,172 @@ final class ParseException extends AppException {
   }
 }
 
+final class FirebaseAuthAppException extends AppException {
+  final String code;
+  final String? firebaseMessage;
+
+  FirebaseAuthAppException({
+    required super.exception,
+    required super.stackTrace,
+    required this.code,
+    required this.firebaseMessage,
+  });
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Firebase Auth',
+      location: code,
+      isSevere: _isSevereCode(code),
+      needsReport: _needsReport(code),
+      details: {
+        'code': code,
+        if (firebaseMessage != null) 'message': firebaseMessage,
+      },
+    );
+  }
+
+  static bool _isSevereCode(String code) {
+    return switch (code) {
+      'operation-not-allowed' => true,
+      _ => false,
+    };
+  }
+
+  static bool _needsReport(String code) {
+    return switch (code) {
+      'invalid-email' ||
+      'user-disabled' ||
+      'user-not-found' ||
+      'wrong-password' ||
+      'invalid-credential' ||
+      'email-already-in-use' ||
+      'weak-password' ||
+      'too-many-requests' ||
+      'network-request-failed' => false,
+      _ => true,
+    };
+  }
+}
+
+final class FirebaseFirestoreAppException extends AppException {
+  final String code;
+  final String? firebaseMessage;
+
+  FirebaseFirestoreAppException({
+    required super.exception,
+    required super.stackTrace,
+    required this.code,
+    required this.firebaseMessage,
+  });
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Firestore',
+      location: code,
+      isSevere: code == 'permission-denied',
+      needsReport: code != 'permission-denied',
+      details: {
+        'code': code,
+        if (firebaseMessage != null) 'message': firebaseMessage,
+      },
+    );
+  }
+}
+
+final class FirebaseStorageAppException extends AppException {
+  final String code;
+  final String? firebaseMessage;
+
+  FirebaseStorageAppException({
+    required super.exception,
+    required super.stackTrace,
+    required this.code,
+    required this.firebaseMessage,
+  });
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Firebase Storage',
+      location: code,
+      isSevere: false,
+      needsReport: !{'unauthorized', 'unauthorized-user', 'object-not-found'}
+          .contains(code),
+      details: {
+        'code': code,
+        if (firebaseMessage != null) 'message': firebaseMessage,
+      },
+    );
+  }
+}
+
+final class LocationServicesDisabledException extends AppException {
+  LocationServicesDisabledException({required super.stackTrace})
+    : super(exception: StateError('Location services are disabled'));
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Location Services Disabled',
+      location: 'Device location is turned off',
+      isSevere: false,
+      needsReport: false,
+      details: {},
+    );
+  }
+}
+
+final class LocationPermissionDeniedException extends AppException {
+  LocationPermissionDeniedException({
+    required super.stackTrace,
+    required this.isPermanent,
+  }) : super(exception: StateError('Location permission denied'));
+
+  final bool isPermanent;
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Location Permission Denied',
+      location: isPermanent
+          ? 'Permission permanently denied'
+          : 'Permission denied',
+      isSevere: false,
+      needsReport: false,
+      details: {'isPermanent': isPermanent},
+    );
+  }
+}
+
+enum AttendanceRuleViolation {
+  alreadyCheckedIn,
+  notCheckedIn,
+  alreadyCheckedInToday,
+  alreadyCheckedOutToday,
+}
+
+final class AttendanceRuleException extends AppException {
+  AttendanceRuleException({
+    required this.violation,
+    required super.stackTrace,
+  }) : super(exception: StateError(violation.name));
+
+  final AttendanceRuleViolation violation;
+
+  @override
+  ErrorIdentity buildErrorIdentity() {
+    return ErrorIdentity(
+      type: 'Attendance Rule',
+      location: violation.name,
+      isSevere: false,
+      needsReport: false,
+      details: {'violation': violation.name},
+    );
+  }
+}
+
 final class UnknownException extends AppException {
   UnknownException({required super.exception, required super.stackTrace});
 

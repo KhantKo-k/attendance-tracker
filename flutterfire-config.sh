@@ -9,35 +9,24 @@ switch_firebase_project() {
 }
 
 if [[ $# -eq 0 ]]; then
-    echo "Error: No environment specified. Use 'mock', 'dev', 'uat', 'preprod', or 'prod'."
+    echo "Error: No environment specified. Use 'local', 'staging', or 'production'."
     exit 1
 fi
 
 case $1 in
-    mock|dev|uat|preprod)
+    local|staging|production)
         # Switch to main project
-        switch_firebase_project "app-starter-kit-firebase"
+        switch_firebase_project "attendance-tracker-d696e"
         flutterfire config \
-            --project=app-starter-kit-firebase \
+            --project=attendance-tracker-d696e \
             --out=lib/firebase_options_$1.dart \
-            --ios-bundle-id=com.onenex.app-starter-kit-bloc.$1 \
+            --ios-bundle-id=com.kkz.attendance-tracker.$1 \
             --ios-out=ios/Runner/$1/GoogleService-Info.plist \
-            --android-package-name=com.onenex.app_starter_kit_bloc.$1 \
-            --android-out=android/app/src/$1/google-services.json
-        ;;
-    prod)
-        # Switch to main project
-        switch_firebase_project "app-starter-kit-firebase"
-        flutterfire config \
-            --project=app-starter-kit-firebase \
-            --out=lib/firebase_options_$1.dart \
-            --ios-bundle-id=com.onenex.app-starter-kit-bloc.$1 \
-            --ios-out=ios/Runner/$1/GoogleService-Info.plist \
-            --android-package-name=com.onenex.app_starter_kit_bloc.$1 \
+            --android-package-name=com.kkz.attendance_tracker.$1 \
             --android-out=android/app/src/$1/google-services.json
         ;;
     *)
-        echo "Error: Invalid environment specified. Use 'mock', 'dev', 'uat', 'preprod', or 'prod'."
+        echo "Error: Invalid environment specified. Use 'local', 'staging', or 'production'."
         exit 1
         ;;
 esac

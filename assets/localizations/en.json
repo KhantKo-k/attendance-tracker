@@ -1,37 +1,90 @@
 {
+  "common": {
+    "ok": "OK",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "logout": "Log out"
+  },
+  "logoutConfirm": {
+    "title": "Log out?",
+    "message": "Are you sure you want to log out?"
+  },
+  "languageSelector": {
+    "english": "English",
+    "myanmar": "မြန်မာ"
+  },
   "landingPage": {
-    "appName": "Starter Kit",
-    "welcome": "An app starter kit for your next project",
-    "login": "Log In",
+    "appName": "Attendance Tracker",
+    "welcome": "Track check-ins and check-outs with role-based access",
+    "login": "Login",
     "register": "Register"
   },
   "loginPage": {
-    "login": "Log In",
-    "welcome": "Welcome back!",
-    "username": "Username",
+    "title": "Login",
+    "email": "Email",
     "password": "Password",
-    "usernameRequired": "Please enter your username",
-    "passwordRequired": "Please enter your password"
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "login": "Login"
   },
-  "productPage": {
-    "products": "Products",
-    "search": "Search products...",
-    "productDetail": "Product Detail",
-    "noProductData": "No product data available."
+  "registerPage": {
+    "title": "Register",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "nameRequired": "Name is required",
+    "emailRequired": "Email is required",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "createAccount": "Create account"
   },
-  "notificationPage": {
-    "notifications": "Notifications",
-    "noNotifications": "No notifications available.",
-    "noNotificationsYet": "No notifications yet.",
-    "couldNotLoadNotifications": "Could not load notifications.",
+  "homePage": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "home": "Home",
+    "history": "History"
+  },
+  "attendancePage": {
+    "title": "Attendance",
+    "currentStatus": "Current Status",
+    "statusComplete": "Attendance Complete for Today",
+    "statusCheckedIn": "Checked In",
+    "statusCheckedOut": "Checked Out",
+    "statusNotCheckedIn": "Not Checked In",
+    "openCheckInWarning": "You have an open check-in from a previous day. Please check out first.",
+    "lastKnownLocation": "Last known location",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
     "retry": "Retry"
   },
-  "profilePage": {
-    "title": "Profile",
-    "gender": "Gender",
-    "logout": "Log out",
-    "noStoredUser": "No saved profile. Please sign in again.",
-    "loadError": "Could not load your profile."
+  "attendanceHistoryPage": {
+    "title": "My History",
+    "noRecords": "No attendance records yet",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
+    "pending": "Pending"
+  },
+  "adminDashboardPage": {
+    "title": "Admin Dashboard",
+    "totalUsers": "Total Users",
+    "todayCheckIns": "Today's Check-ins",
+    "todayCheckOuts": "Today's Check-outs"
+  },
+  "adminUsersPage": {
+    "title": "Users",
+    "searchUsers": "Search users",
+    "noUsersFound": "No users found"
+  },
+  "adminUserHistoryPage": {
+    "title": "{name} History",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "noRecords": "No records for selected filters",
+    "checkIn": "Check In",
+    "checkOut": "Check Out"
+  },
+  "userRole": {
+    "admin": "admin",
+    "user": "user"
   },
   "failures": {
     "badRequest": {
@@ -65,6 +118,90 @@
     "unexpected": {
       "title": "Error",
       "message": "Sorry, something went wrong."
+    },
+    "firebaseAuth": {
+      "invalidEmail": {
+        "title": "Invalid Email",
+        "message": "Please enter a valid email address."
+      },
+      "userDisabled": {
+        "title": "Account Disabled",
+        "message": "This account has been disabled. Contact support for help."
+      },
+      "userNotFound": {
+        "title": "Account Not Found",
+        "message": "No account exists with this email address."
+      },
+      "invalidCredential": {
+        "title": "Login Failed",
+        "message": "Invalid email or password. Please try again."
+      },
+      "emailAlreadyInUse": {
+        "title": "Email In Use",
+        "message": "An account with this email already exists."
+      },
+      "operationNotAllowed": {
+        "title": "Sign-in Unavailable",
+        "message": "Email/password sign-in is not enabled. Contact support."
+      },
+      "weakPassword": {
+        "title": "Weak Password",
+        "message": "Password is too weak. Use at least 6 characters."
+      },
+      "tooManyRequests": {
+        "title": "Too Many Attempts",
+        "message": "Too many failed attempts. Please try again later."
+      },
+      "default": {
+        "title": "Authentication Error",
+        "message": "Could not complete authentication. Please try again."
+      }
+    },
+    "firebaseFirestore": {
+      "default": {
+        "title": "Database Error",
+        "message": "Could not complete the request. Please try again."
+      }
+    },
+    "firebaseStorage": {
+      "default": {
+        "title": "Upload Error",
+        "message": "Could not upload the file. Please try again."
+      }
+    },
+    "location": {
+      "openSettings": "Open Settings",
+      "cancel": "Cancel",
+      "servicesDisabled": {
+        "title": "Location Is Off",
+        "message": "Turn on location services to check in or check out."
+      },
+      "permissionDenied": {
+        "title": "Location Permission Required",
+        "message": "Allow location access while using the app to record attendance."
+      },
+      "permissionPermanentlyDenied": {
+        "title": "Location Permission Blocked",
+        "message": "Enable location permission for this app in Settings to record attendance."
+      }
+    },
+    "attendance": {
+      "alreadyCheckedIn": {
+        "title": "Already Checked In",
+        "message": "Please check out before checking in again."
+      },
+      "notCheckedIn": {
+        "title": "Not Checked In",
+        "message": "You need to check in before you can check out."
+      },
+      "alreadyCheckedInToday": {
+        "title": "Check-in Complete",
+        "message": "You have already checked in today."
+      },
+      "alreadyCheckedOutToday": {
+        "title": "Check-out Complete",
+        "message": "You have already checked out today."
+      }
     }
   }
 }

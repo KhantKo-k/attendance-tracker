@@ -2,9 +2,9 @@ import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
 import 'package:app_starter_kit_bloc/core/navigation/app_router.dart';
 import 'package:app_starter_kit_bloc/features/auth/auth_routes.dart';
 import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/widgets/language_selector.dart';
+import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
 import 'package:app_starter_kit_bloc/shared/utils/extensions/string_extensions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/change_theme_icon_button.dart';
+import 'package:app_starter_kit_bloc/shared/widgets/app_bar_settings_actions.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {
@@ -13,59 +13,95 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
       appBar: _buildAppBar(),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildAppLogo(theme),
-                      const SizedBox(height: 16),
-                      _buildBrandName(theme, context.tr('landingPage.appName')),
-                      const SizedBox(height: 8),
-                      _buildBrandMessage(theme, context.tr('landingPage.welcome')),
-                    ],
-                  ),
+        child: Column(
+          children: [
+            _buildHeroSection(context, theme, colors),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: kPaddingLarge),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _buildLoginButton(context, theme),
+                    const SizedBox(height: kPaddingMedium),
+                    _buildRegisterButton(context, theme),
+                    const SizedBox(height: kPaddingXLarge),
+                  ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _buildLoginButton(theme, context.tr('landingPage.login')),
-                  const SizedBox(height: 16),
-                  _buildRegisterButton(theme, context.tr('landingPage.register')),
-                  const SizedBox(height: 32), // Bottom padding
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
   AppBar _buildAppBar() {
-    return AppBar(actions: [const ChangeThemeIconButton(), const LanguageSelector()]);
+    return AppBar(
+      actions: const [AppBarSettingsActions()],
+    );
   }
 
-  Widget _buildAppLogo(ThemeData theme) {
-    return SizedBox.square(
-      dimension: 192,
-      child: Image.asset('app_logo.png'.toAssetImagePath, fit: BoxFit.contain),
+  Widget _buildHeroSection(
+    BuildContext context,
+    ThemeData theme,
+    ColorScheme colors,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        kPaddingLarge,
+        kPaddingMedium,
+        kPaddingLarge,
+        kPaddingXLarge,
+      ),
+      child: Column(
+        children: [
+          _buildAppLogo(colors),
+          const SizedBox(height: kPaddingLarge),
+          _buildBrandName(theme, context.tr('landingPage.appName')),
+          const SizedBox(height: kPaddingSmall),
+          _buildBrandMessage(theme, context.tr('landingPage.welcome')),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppLogo(ColorScheme colors) {
+    return Container(
+      width: 160,
+      height: 160,
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerLowest,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: colors.primary.withValues(alpha: 0.12),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(kPaddingMedium),
+      child: Image.asset(
+        'app_logo.png'.toAssetImagePath,
+        fit: BoxFit.contain,
+      ),
     );
   }
 
   Widget _buildBrandName(ThemeData theme, String name) {
     return Text(
       name,
-      style: theme.textTheme.displayMedium!.copyWith(
+      textAlign: TextAlign.center,
+      style: theme.textTheme.headlineMedium?.copyWith(
         fontWeight: FontWeight.bold,
+        color: theme.colorScheme.onSurface,
       ),
     );
   }
@@ -74,35 +110,24 @@ class LandingPage extends StatelessWidget {
     return Text(
       message,
       textAlign: TextAlign.center,
-      style: theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w300),
+      style: theme.textTheme.bodyLarge?.copyWith(
+        color: theme.colorScheme.onSurfaceVariant,
+        height: 1.5,
+      ),
     );
   }
 
-  Widget _buildLoginButton(ThemeData theme, String label) {
-    return ElevatedButton(
+  Widget _buildLoginButton(BuildContext context, ThemeData theme) {
+    return FilledButton(
       onPressed: _navigateToLogin,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: theme.colorScheme.primary,
-        foregroundColor: theme.colorScheme.onPrimary,
-        textStyle: theme.textTheme.titleMedium!.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      child: Text(label),
+      child: Text(context.tr('landingPage.login')),
     );
   }
 
-  Widget _buildRegisterButton(ThemeData theme, String label) {
-    return ElevatedButton(
+  Widget _buildRegisterButton(BuildContext context, ThemeData theme) {
+    return OutlinedButton(
       onPressed: _navigateToRegister,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: theme.colorScheme.secondaryContainer,
-        foregroundColor: theme.colorScheme.onSecondaryContainer,
-        textStyle: theme.textTheme.titleMedium!.copyWith(
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      child: Text(label),
+      child: Text(context.tr('landingPage.register')),
     );
   }
 
@@ -111,10 +136,6 @@ class LandingPage extends StatelessWidget {
   }
 
   void _navigateToRegister() {
-    ScaffoldMessenger.of(AppNavigatorKey.context).showSnackBar(
-      const SnackBar(
-        content: Text('New user registration is not available yet'),
-      ),
-    );
+    serviceLocator.get<AppRouter>().navigateToRegister();
   }
 }

@@ -1,15 +1,21 @@
-class Note {
-  final String id;
-  final String title;
-  final String content;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-
-  Note({
+class PendingAttendanceLog {
+  PendingAttendanceLog({
     required this.id,
-    required this.title,
-    required this.content,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.userId,
+    required this.userName,
+    required this.type,
+    required this.timestamp,
+    required this.latitude,
+    required this.longitude,
+    this.address,
   });
+
+  final String id;
+  final String userId;
+  final String userName;
+  final String type;
+  final DateTime timestamp;
+  final double latitude;
+  final double longitude;
+  final String? address;
 }

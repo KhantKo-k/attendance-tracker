@@ -16,10 +16,9 @@ abstract interface class RemoteLocalizationApi {
   Future<Either<LocalizationDto, Failure>> fetchLocalizations(String lang);
 }
 
-@prodEnv
-@devEnv
-@uatEnv
-@preprodEnv
+@productionEnv
+@localEnv
+@stagingEnv
 @Injectable(as: RemoteLocalizationApi)
 @RestApi(parser: Parser.FlutterCompute, callAdapter: RetrofitApiCallAdapter)
 abstract class RemoteLocalizationApiImpl implements RemoteLocalizationApi {
@@ -32,13 +31,4 @@ abstract class RemoteLocalizationApiImpl implements RemoteLocalizationApi {
   Future<Either<LocalizationDto, Failure>> fetchLocalizations(
     @Path('lang') String lang,
   );
-}
-
-@mockEnv
-@Injectable(as: RemoteLocalizationApi)
-class MockRemoteLocalizationApiImpl implements RemoteLocalizationApi {
-  @override
-  Future<Either<LocalizationDto, Failure>> fetchLocalizations(String lang) {
-    return Future.value(Left(LocalizationDto(data: {'test': 'test'})));
-  }
 }
