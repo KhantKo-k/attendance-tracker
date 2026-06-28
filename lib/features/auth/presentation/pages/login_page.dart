@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
-          return context.tr('loginPage.emailRequired');
+          return context.trRead('loginPage.emailRequired');
         }
         return null;
       },
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
       labelText: context.tr('loginPage.password'),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return context.tr('loginPage.passwordRequired');
+          return context.trRead('loginPage.passwordRequired');
         }
         return null;
       },

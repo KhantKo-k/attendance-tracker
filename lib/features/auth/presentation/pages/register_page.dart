@@ -91,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
-          return context.tr('registerPage.nameRequired');
+          return context.trRead('registerPage.nameRequired');
         }
         return null;
       },
@@ -108,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
-          return context.tr('registerPage.emailRequired');
+          return context.trRead('registerPage.emailRequired');
         }
         return null;
       },
@@ -123,7 +123,7 @@ class _RegisterPageState extends State<RegisterPage> {
       labelText: context.tr('registerPage.password'),
       validator: (value) {
         if (value == null || value.length < 6) {
-          return context.tr('registerPage.passwordMinLength');
+          return context.trRead('registerPage.passwordMinLength');
         }
         return null;
       },
