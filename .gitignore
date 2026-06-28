@@ -184,6 +184,7 @@ app.*.symbols
 *.env.g.dart
 ## env files
 .env.*
+!.env.example
 
 # AI agent / Cursor IDE (local tooling — not shared via repo)
 AGENTS.md
