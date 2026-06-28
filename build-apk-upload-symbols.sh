@@ -8,7 +8,7 @@ FLAVOR=$2
 if [ -z "$BUILD_TYPE" ] || [ -z "$FLAVOR" ]; then
   echo "❌ Usage: $0 <BUILD_TYPE> <FLAVOR>"
   echo "   BUILD_TYPE: apk or appbundle"
-  echo "   FLAVOR: dev, mock, uat, preprod, or prod"
+  echo "   FLAVOR: local, staging, or production"
   exit 1
 fi
 
@@ -22,11 +22,7 @@ fi
 # Function to get Firebase app ID based on flavor
 get_firebase_app_id() {
   local flavor=$1
-  if [ "$FLAVOR" == "prod" ]; then
-    local package_name="com.ksta.app_starter_kit_bloc"
-  else
-    local package_name="com.ksta.app_starter_kit_bloc.$flavor"
-  fi
+  local package_name="com.kkz.attendance_tracker.$flavor"
   local google_services_path="android/app/src/$flavor/google-services.json"
 
   if [ ! -f "$google_services_path" ]; then
@@ -48,7 +44,7 @@ get_firebase_app_id() {
   echo "$app_id"
 }
 
-DART_DEFINE_ENV="appEnv=$FLAVOR"
+DART_DEFINE_ENV="appFlavor=$FLAVOR"
 DEBUG_SYMBOLS_PATH="./debug-symbols/android"
 APP_ID=$(get_firebase_app_id "$FLAVOR")
 

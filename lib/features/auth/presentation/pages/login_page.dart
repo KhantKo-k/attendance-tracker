@@ -1,11 +1,12 @@
-import 'package:app_starter_kit_bloc/core/error/global_error_handler.dart';
-import 'package:app_starter_kit_bloc/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:app_starter_kit_bloc/features/home/presentation/home_routes.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/widgets/language_selector.dart';
-import 'package:app_starter_kit_bloc/shared/theme/dimensions.dart';
-import 'package:app_starter_kit_bloc/shared/utils/extensions/string_extensions.dart';
-import 'package:app_starter_kit_bloc/shared/widgets/change_theme_icon_button.dart';
+import 'package:attendance_tracker/core/error/global_error_handler.dart';
+import 'package:attendance_tracker/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:attendance_tracker/features/home/presentation/home_routes.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/shared/theme/dimensions.dart';
+import 'package:attendance_tracker/shared/utils/extensions/string_extensions.dart';
+import 'package:attendance_tracker/shared/widgets/app_card.dart';
+import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
+import 'package:attendance_tracker/shared/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,12 +20,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -32,23 +33,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is LoginFail) {
-          _handleLoginFailure(context, state);
-          return;
-        }
-      },
+      listener: _onStateChanged,
       child: Builder(
         builder: (context) {
           final isLoading = context.select(
-            (AuthBloc bloc) => bloc.state is LoginLoading,
+            (AuthBloc bloc) => bloc.state is AuthLoading,
           );
 
           return PopScope(
             canPop: !isLoading,
             child: Scaffold(
-              appBar: _buildAppBar(context.tr('loginPage.login')),
-              body: _buildLoginForm(),
+              appBar: _buildAppBar(context),
+              body: _buildLoginForm(context, isLoading),
             ),
           );
         },
@@ -56,32 +52,34 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  AppBar _buildAppBar(String title) {
+  AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: BackButton(onPressed: () => context.go(HomeRoutes.landing)),
-      title: Text(title),
-      actions: [const ChangeThemeIconButton(), const LanguageSelector()],
+      title: Text(context.tr('loginPage.title')),
+      actions: const [AppBarSettingsActions()],
     );
   }
 
-  Widget _buildLoginForm() {
-    return Form(
-      key: _formKey,
-      child: Center(
-        child: SingleChildScrollView(
-          reverse: true,
-          padding: const EdgeInsets.all(kPaddingMedium),
-          child: Column(
-            children: [
-              _buildAppLogo(),
-              const SizedBox(height: 16),
-              _buildWelcomeMessage(context.tr('loginPage.welcome')),
-              const SizedBox(height: 32),
-              _buildInputFields(),
-              const SizedBox(height: 24),
-              _buildLoginButton(context.tr('loginPage.login')),
-              const SizedBox(height: 16),
-            ],
+  Widget _buildLoginForm(BuildContext context, bool isLoading) {
+    return Center(
+      child: SingleChildScrollView(
+        reverse: true,
+        padding: const EdgeInsets.all(kPaddingLarge),
+        child: Form(
+          key: _formKey,
+          child: AppCard(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildAppLogo(),
+                const SizedBox(height: kPaddingLarge),
+                _buildEmailInput(context, isLoading),
+                const SizedBox(height: kPaddingMedium),
+                _buildPasswordInput(context, isLoading),
+                const SizedBox(height: kPaddingLarge),
+                _buildLoginButton(context, isLoading),
+              ],
+            ),
           ),
         ),
       ),
@@ -89,125 +87,59 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildAppLogo() {
-    return Container(
-      width: 156,
-      height: 156,
-      padding: EdgeInsets.all(kPaddingSmall),
+    return SizedBox(
+      width: 96,
+      height: 96,
       child: Image.asset('app_logo.png'.toAssetImagePath, fit: BoxFit.contain),
     );
   }
 
-  Widget _buildWelcomeMessage(String welcomeMessage) {
-    return Text(
-      welcomeMessage,
-      style: Theme.of(context).textTheme.titleLarge,
-      textAlign: TextAlign.center,
-    );
-  }
-
-  Widget _buildInputFields() {
-    return Builder(
-      builder: (context) {
-        final isLoading = context.select(
-          (AuthBloc bloc) => bloc.state is LoginLoading,
-        );
-
-        return AutofillGroup(
-          child: Column(
-            children: [
-              _buildUserNameInput(
-                isLoading,
-                context.tr('loginPage.username'),
-                context.tr('loginPage.usernameRequired'),
-              ),
-              const SizedBox(height: 16),
-              _buildPasswordInput(
-                isLoading,
-                context.tr('loginPage.password'),
-                context.tr('loginPage.passwordRequired'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildUserNameInput(
-    bool isLoading,
-    String usernameLabel,
-    String usernameRequiredMessage,
-  ) {
+  Widget _buildEmailInput(BuildContext context, bool isLoading) {
     return TextFormField(
-      controller: _usernameController,
+      controller: _emailController,
       decoration: InputDecoration(
-        labelText: usernameLabel,
-        prefixIcon: Icon(Icons.person),
+        labelText: context.tr('loginPage.email'),
+        prefixIcon: const Icon(Icons.email_outlined),
       ),
       validator: (value) {
-        if (value == null || value.isEmpty) {
-          return usernameRequiredMessage;
+        if (value == null || value.trim().isEmpty) {
+          return context.tr('loginPage.emailRequired');
         }
         return null;
       },
       enabled: !isLoading,
       keyboardType: TextInputType.emailAddress,
-      autofillHints: [AutofillHints.email, AutofillHints.username],
-      // onFieldSubmitted: (_) => TextInput.finishAutofillContext(),
     );
   }
 
-  Widget _buildPasswordInput(
-    bool isLoading,
-    String passwordLabel,
-    String passwordRequiredMessage,
-  ) {
-    return TextFormField(
+  Widget _buildPasswordInput(BuildContext context, bool isLoading) {
+    return PasswordTextField(
       controller: _passwordController,
-      decoration: InputDecoration(
-        labelText: passwordLabel,
-        prefixIcon: Icon(Icons.lock),
-      ),
+      labelText: context.tr('loginPage.password'),
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return passwordRequiredMessage;
+          return context.tr('loginPage.passwordRequired');
         }
         return null;
       },
       onFieldSubmitted: (_) => _loginClicked(),
       enabled: !isLoading,
-      obscureText: true,
-      keyboardType: TextInputType.visiblePassword,
-      autofillHints: [AutofillHints.password],
     );
   }
 
-  Widget _buildLoginButton(String loginButtonText) {
-    return Builder(
-      builder: (context) {
-        final isLoading = context.select(
-          (AuthBloc bloc) => bloc.state is LoginLoading,
-        );
-
-        final theme = Theme.of(context);
-
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: isLoading ? null : _loginClicked,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: theme.colorScheme.primary,
-              foregroundColor: theme.colorScheme.onPrimary,
-              textStyle: theme.textTheme.titleMedium!.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            child: isLoading
-                ? const CircularProgressIndicator()
-                : Text(loginButtonText),
-          ),
-        );
-      },
+  Widget _buildLoginButton(BuildContext context, bool isLoading) {
+    return SizedBox(
+      width: double.infinity,
+      child: FilledButton(
+        onPressed: isLoading ? null : _loginClicked,
+        child: isLoading
+            ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+            : Text(context.tr('loginPage.login')),
+      ),
     );
   }
 
@@ -218,13 +150,15 @@ class _LoginPageState extends State<LoginPage> {
 
     context.read<AuthBloc>().add(
       LoginRequested(
-        userName: _usernameController.text,
+        email: _emailController.text.trim(),
         password: _passwordController.text,
       ),
     );
   }
 
-  void _handleLoginFailure(BuildContext context, LoginFail state) {
-    GlobalErrorHandler().handleError(context, state.failure);
+  void _onStateChanged(BuildContext context, AuthState state) {
+    if (state is AuthFailure) {
+      GlobalErrorHandler().handleError(context, state.failure);
+    }
   }
 }

@@ -1,185 +1,253 @@
-# Flutter App Starter Kit
+# Attendance Tracker
 
-A starter project for a Flutter application. It includes a foundation for a Flutter application with flavors.
+Role-based attendance app built with Flutter, BLoC, and Firebase. Users check in/out with location; admins view a dashboard, user list, and attendance history. Supports **local**, **staging**, and **production** flavors.
 
 ## Features
 
-**Core**
-
-- [x] Clean architecture (data, domain, presentation)
-- [x] Localization
-- [x] Theme
-- [x] Splash Generation
-- [x] Environment variables
-- [x] Dependency injection
-- [x] Navigation
-- [x] State management (Bloc)
-- [x] Repository pattern
-- [ ] Local cache
-- [x] API client
-- [x] Data classes
-- [x] Logging
-- [x] Error handling
-- [x] Refresh token handling
-- [x] Error reporting
-- [x] App Security Checks
-- [x] Push Notifications
-- [x] Deep Links
-
-**Third Party**
-
-- [x] Firebase init
-- [x] Firebase Crashlytics
-
-**Distribution**
-
-- [x] Signing keys
-- [x] Flavors
-- [x] Build scripts
-- [x] API Keys Management
-
-**Agents**
-
-- [ ] AGENTS.md
-- [ ] Rules
-   - [ ] Architecture
-- [ ] Skills
-   - [ ] State management
-   - [ ] Dependency Injection
-   - [ ] Error Handling
-   - [ ] Logging
-   - [ ] Navigation
-   - [ ] Feature Implementation
-- [ ] PRD
-- [ ] Mobile MCP
-- [ ] Figma to Implementation
-- [ ] SDD  (Spec Driven Development)
-
-## Libraries Used
-
-- **Bloc**: for state management
-- **Go Router**: for navigation
-- **Dio**: for HTTP requests
-- **Fresh Dio**: for refresh token handling
-- **Retrofit**: for API requests
-- **Dartz**: for functional programming
-- **Get It**: for dependency injection
-- **Injectable**: for dependency configuration
-- **Freezed**: for data classes
-- **Json Serializable**: for JSON serialization
-- **Equatable**: for equality comparison
-- **Logger**: for logging
-- **Flutter Secure Storage**: for secure storage
-- **Flutter Flavorizr**: for flavor configuration
-
-# Getting Started
+- Email/password auth (register, login, logout)
+- User check-in / check-out with GPS location
+- Offline attendance queue with sync when back online
+- Admin dashboard, user search, and per-user history
+- English / Myanmar localization and light / dark theme
+- Firebase Auth, Firestore, and Crashlytics
 
 ## Prerequisites
 
-- Flutter SDK
-- Dart SDK
-- Android Studio
-- Xcode
+| Tool | Purpose |
+|------|---------|
+| [Flutter SDK](https://docs.flutter.dev/get-started/install) (stable) | Build and run the app |
+| Android Studio + SDK | Android emulator / device |
+| Xcode (macOS only) | iOS simulator / device |
+| [Firebase CLI](https://firebase.google.com/docs/cli) | Deploy Firestore rules |
 
-## Installation
+Optional: CocoaPods (`sudo gem install cocoapods`) for iOS.
 
-1. Clone the repository
-2. Run `flutter pub get` to install the dependencies
-3. Run `dart run build_runner build` to generate the necessary files
-4. See the `launch.json` file for the available launch configurations
+---
 
-## Removing unnecessary platforms
+## Run the project (step by step)
 
-If you are not developing for `web`, `linux`, `windows`, or `macos`, you can remove the unnecessary platforms folders.
+### 1. Clone and install dependencies
 
-## Step 1: Configure App Signing (For Android)
+```bash
+git clone <repository-url>
+cd attendance_tracker
+flutter pub get
+```
 
-Before starting the development process, you need to configure the app signing for your app. To do this, follow the steps below:
+### 2. Create environment files
 
-1. Create a new file called `key.properties` in the `android` folder
-2. Copy the content of the `key.properties.example` file to the `key.properties` file
-3. Edit the `key.properties` file to add the correct values for your app
-4. If you don't have the keystore files, you can generate them using the instructions in the `docs/keytool-commands.md` file.
+Env files are **not** committed (see `.gitignore`). Create one file per flavor at the repo root:
 
-## Step 2: Flavoring App Using Flutter Flavorizr
+- `.env.local`
+- `.env.staging`
+- `.env.production`
 
-To change package ids and configure flavors, follow the steps below:
+Each file only needs these two keys:
 
-1. Edit the `pubspec.yaml` file to change the package id and the app name under the `flavorizr` section
-2. See the official documentation for more details [here](https://pub.dev/packages/flutter_flavorizr)
-3. Run the following command to generate the necessary configuration
+```env
+BASE_URL=https://example.com
+FIREBASE_URL=https://attendance-tracker-d696e.firebaseio.com
+```
+
+### 3. Generate code
+
+Run after cloning or whenever you change env files, Freezed models, or injectable classes:
+
+```bash
+dart run build_runner clean
+dart run build_runner build
+```
+
+This generates `*.g.dart`, `*.freezed.dart`, envied config, and DI setup.
+
+### 4. Configure Android signing
+
+Debug and release builds expect `android/key.properties`.
+
+```bash
+cp android/key.properties.example android/key.properties
+```
+
+Edit `android/key.properties` with your keystore paths and passwords.  
+To generate keystores, see [`.docs/keytool-commands.md`](.docs/keytool-commands.md).
+
+> Without `key.properties`, Android builds will fail.
+
+### 5. Set up Firebase
+
+**Firebase project (local dev):** `attendance-tracker-d696e`
+
+#### 5a. Enable Firebase services
+
+In [Firebase Console](https://console.firebase.google.com/project/attendance-tracker-d696e):
+
+1. **Authentication** → Sign-in method → enable **Email/Password**
+2. **Firestore Database** → Create database (production mode is fine; rules come from the repo)
+
+#### 5b. Add Android / iOS apps
+
+Register an app for each flavor you use. Package / bundle IDs:
+
+| Flavor | Android applicationId | iOS bundle ID |
+|--------|----------------------|---------------|
+| local | `com.kkz.attendance_tracker.local` | `com.kkz.attendance-tracker.local` |
+| staging | `com.kkz.attendance_tracker.staging` | `com.kkz.attendance-tracker.staging` |
+| production | `com.kkz.attendance_tracker.production` | `com.kkz.attendance-tracker.production` |
+
+Download config files and place them here (also copied by the script in 5c):
+
+```
+android/app/src/local/google-services.json
+android/app/src/staging/google-services.json
+android/app/src/production/google-services.json
+
+ios/Runner/local/GoogleService-Info.plist
+ios/Runner/staging/GoogleService-Info.plist
+ios/Runner/production/GoogleService-Info.plist
+```
+
+Add your debug **SHA-1 / SHA-256** fingerprints in Firebase Console for each Android app.
+
+#### 5c. Generate FlutterFire options (optional refresh)
+
+```bash
+chmod +x flutterfire-config.sh
+./flutterfire-config.sh local
+```
+
+Repeat for `staging` or `production` if needed. This updates `lib/firebase_options_<flavor>.dart` and the native config paths above.
+
+#### 5d. Deploy Firestore security rules
+
+**Required** for admin access to users and attendance logs. Rules live in [`firestore.rules`](firestore.rules) and read admin role from the Firestore `users` document (not from the auth token).
+
+```bash
+firebase login
+firebase use attendance-tracker-d696e
+firebase deploy --only firestore:rules
+```
+
+Do **not** use `request.auth.token.role` in console rules unless you set custom claims via the Admin SDK. The repo rules use `users/{uid}.role == 'admin'`.
+
+#### 5e. Create an admin user
+
+1. Register a user in the app (or create one in Firebase Authentication).
+2. In Firestore → `users` → `{uid}`, set:
+
+```json
+{
+  "name": "Admin",
+  "email": "admin@example.com",
+  "role": "admin"
+}
+```
+
+Regular users must have `"role": "user"` (set automatically on register).
+
+### 6. iOS setup (macOS only)
+
+```bash
+cd ios
+pod install
+cd ..
+```
+
+Open `ios/Runner.xcworkspace` in Xcode if you need to fix signing team / provisioning.
+
+### 7. Run the app
+
+**VS Code / Cursor:** use a launch config from [`.vscode/launch.json`](.vscode/launch.json), e.g. **Attendance Tracker Local (debug)**.
+
+**CLI:**
+
+```bash
+flutter run --flavor local --dart-define=appFlavor=local
+```
+
+Both `--flavor` and `--dart-define=appFlavor=...` are required and must match.
+
+---
+
+## Flavors
+
+| Flavor | Use case | `appFlavor` value |
+|--------|----------|-------------------|
+| local | Local development | `local` |
+| staging | Pre-production testing | `staging` |
+| production | Store / production | `production` |
+
+Env file mapping: `.env.local` → `local`, `.env.staging` → `staging`, `.env.production` → `production`.
+
+---
+
+## Build commands
+
+### Debug / development
+
+```bash
+# Android
+flutter run --flavor local --dart-define=appFlavor=local
+flutter build apk --flavor local --dart-define=appFlavor=local
+
+# iOS
+flutter run --flavor local --dart-define=appFlavor=local
+flutter build ios --flavor local --dart-define=appFlavor=local
+```
+
+### Release (with Crashlytics symbols)
+
+```bash
+# Android APK
+./build-apk-upload-symbols.sh apk local
+
+# Android App Bundle
+./build-apk-upload-symbols.sh appbundle production
+
+# iOS IPA
+./build-ipa-upload-symbols.sh production
+```
+
+---
+
+## Firebase deploy quick reference
+
+```bash
+firebase use attendance-tracker-d696e
+firebase deploy --only firestore:rules
+```
+
+---
+
+## Troubleshooting
+
+| Issue | What to check |
+|-------|----------------|
+| Admin **Forbidden** on Users page | Deploy [`firestore.rules`](firestore.rules). Admin doc must have `role: "admin"`. |
+| Build fails on env / code gen | Run `dart run build_runner build`. Ensure `.env.<flavor>` exists with `BASE_URL` and `FIREBASE_URL`. |
+| Android signing error | Create `android/key.properties` from the example file. |
+
+---
+
+## Project structure
+
+See [`AGENTS.md`](AGENTS.md) for architecture, coding standards, and folder layout.
+
+## Libraries
+
+Bloc, go_router, Dio, Retrofit, Freezed, injectable / GetIt, Dartz, envied, Firebase (Auth, Firestore, Crashlytics), Hive CE, geolocator, connectivity_plus.
+
+---
+
+## Optional: flavorizr / splash
+
+Only needed when changing app IDs or flavor setup:
 
 ```bash
 dart run flutter_flavorizr
 ```
 
-4. As this example doesn't do the generation of the app icons and launch screen, you need to manually change some ios configurations after flavorization.
-   - **Launch Screen**: In xcode, open `Info` tab inside the target `Runner`, and change the `Launch screen interface file base name` to `LaunchScreen`.
-   - **App Icon**: In xcode, open `Build Settings` tab inside the project `Runner`, type `icon` in the filter box, and change the `Primary App Icon Set Name` to `AppIcon`.
-
-**Note:** Flutter flavorizr only works for Android, iOS and MacOS.
-
-## Step 3: Firebase Setup
-
-After configuring the app signing keys and flavors, you need to configure Firebase. To do this, follow the steps below:
-
-1. Add your debug and release SHA256 fingerprints to the Firebase console for all flavors.
-2. Download the `google-services.json` and `GoogleService-Info.plist` files for each flavor and place it in the `.firebase/<flavor>/` folder.
-4. Run `./flutterfire-config.sh ${flavor}` to generate the necessary files for the flavor.
-   - After choosing desire platforms, choose `Build configuration` and then select the `Debug-${flavor}` configuration.
-
-
-**Documentations:** You can see the documentation about `flutterfire documentation` [here](https://firebase.google.com/docs/flutter/setup) and `flutterfire shell script` [here](https://codewithandrea.com/articles/flutter-firebase-multiple-flavors-flutterfire-cli/).
-
-**Note:** This starter project uses single firebase project for all flavors. You must create projects for each flavor in the Firebase Console and run `flutterfire configure` to generate the necessary files for each flavor. You can see the detail example [here](https://codewithandrea.com/articles/flutter-firebase-multiple-flavors-flutterfire-cli/)
-
-## Step 4: Generating Splash Screens
-
-1. Edit the configuration in `flutter_native_splash.yaml`, see the docs [here](https://pub.dev/packages/flutter_native_splash)
-2. Run the following command to generate the splash screen
+Regenerate splash screens:
 
 ```bash
 dart run flutter_native_splash:create --path=flutter_native_splash.yaml
 ```
-
-3. (Optional) If you want to preserve the splash screen during app initialization, move the `flutter_native_splash` from dev dependencies to dependencies in `pubspec.yaml`.
-
-
-## Build & Run
-
-### Development Builds
-
-**Android APK**:
-```bash
-flutter build apk --flavor dev --dart-define=appEnv=dev
-```
-
-**iOS**:
-```bash
-flutter build ios --flavor dev --dart-define=appEnv=dev
-```
-
-### Production Builds
-
-The project includes build scripts for production builds with automatic symbol upload:
-
-**Android**:
-```bash
-# Build APK
-./build-apk-upload-symbols.sh apk prod
-
-# Build App Bundle (for Play Store)
-./build-apk-upload-symbols.sh appbundle prod
-```
-
-**iOS**:
-```bash
-./build-ipa-upload-symbols.sh prod
-```
-
-These scripts will:
-1. Build the app in release mode with obfuscation
-2. Generate debug symbols
-3. Upload symbols to Firebase Crashlytics
-
-For detailed build instructions, see [BUILD_SCRIPTS.md](./BUILD_SCRIPTS.md).

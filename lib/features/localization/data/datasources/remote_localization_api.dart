@@ -1,9 +1,9 @@
-import 'package:app_starter_kit_bloc/core/di/environments.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
-import 'package:app_starter_kit_bloc/core/network/dio_module.dart';
-import 'package:app_starter_kit_bloc/core/network/retrofit_api_call_adapter.dart';
-import 'package:app_starter_kit_bloc/features/localization/data/dtos/localization_dtos.dart';
-import 'package:app_starter_kit_bloc/features/localization/localization_urls.dart';
+import 'package:attendance_tracker/core/di/environments.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
+import 'package:attendance_tracker/core/network/dio_module.dart';
+import 'package:attendance_tracker/core/network/retrofit_api_call_adapter.dart';
+import 'package:attendance_tracker/features/localization/data/dtos/localization_dtos.dart';
+import 'package:attendance_tracker/features/localization/localization_urls.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -16,10 +16,9 @@ abstract interface class RemoteLocalizationApi {
   Future<Either<LocalizationDto, Failure>> fetchLocalizations(String lang);
 }
 
-@prodEnv
-@devEnv
-@uatEnv
-@preprodEnv
+@productionEnv
+@localEnv
+@stagingEnv
 @Injectable(as: RemoteLocalizationApi)
 @RestApi(parser: Parser.FlutterCompute, callAdapter: RetrofitApiCallAdapter)
 abstract class RemoteLocalizationApiImpl implements RemoteLocalizationApi {
@@ -32,13 +31,4 @@ abstract class RemoteLocalizationApiImpl implements RemoteLocalizationApi {
   Future<Either<LocalizationDto, Failure>> fetchLocalizations(
     @Path('lang') String lang,
   );
-}
-
-@mockEnv
-@Injectable(as: RemoteLocalizationApi)
-class MockRemoteLocalizationApiImpl implements RemoteLocalizationApi {
-  @override
-  Future<Either<LocalizationDto, Failure>> fetchLocalizations(String lang) {
-    return Future.value(Left(LocalizationDto(data: {'test': 'test'})));
-  }
 }

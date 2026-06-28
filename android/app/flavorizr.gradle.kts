@@ -6,30 +6,20 @@ android.apply {
     flavorDimensions("flavor-type")
 
     productFlavors {
-        create("mock") {
+        create("local") {
             dimension = "flavor-type"
-            applicationId = "com.onenex.app_starter_kit_bloc.mock"
-            resValue(type = "string", name = "app_name", value = "App Starter Kit (Mock)")
+            applicationId = "com.kkz.attendance_tracker.local"
+            resValue(type = "string", name = "app_name", value = "Attendance Tracker (Local)")
         }
-        create("dev") {
+        create("staging") {
             dimension = "flavor-type"
-            applicationId = "com.onenex.app_starter_kit_bloc.dev"
-            resValue(type = "string", name = "app_name", value = "App Starter Kit (Dev)")
+            applicationId = "com.kkz.attendance_tracker.staging"
+            resValue(type = "string", name = "app_name", value = "Attendance Tracker (Staging)")
         }
-        create("uat") {
+        create("production") {
             dimension = "flavor-type"
-            applicationId = "com.onenex.app_starter_kit_bloc.uat"
-            resValue(type = "string", name = "app_name", value = "App Starter Kit (UAT)")
-        }
-        create("preprod") {
-            dimension = "flavor-type"
-            applicationId = "com.onenex.app_starter_kit_bloc.preprod"
-            resValue(type = "string", name = "app_name", value = "App Starter Kit (Preprod)")
-        }
-        create("prod") {
-            dimension = "flavor-type"
-            applicationId = "com.onenex.app_starter_kit_bloc"
-            resValue(type = "string", name = "app_name", value = "App Starter Kit (Prod)")
+            applicationId = "com.kkz.attendance_tracker.production"
+            resValue(type = "string", name = "app_name", value = "Attendance Tracker (Production)")
         }
     }
 }

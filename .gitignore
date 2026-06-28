@@ -26,6 +26,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Firebase Cloud Functions
+functions/node_modules/
+
 # Obfuscation related
 app.*.map.json
 .crashlytics/
@@ -181,14 +184,14 @@ app.*.symbols
 *.env.g.dart
 ## env files
 .env.*
+!.env.example
 
-# IDE related
-.cursor/*
-.cursor/rules/
-.cursor/rules/*
-.cursor/skills/
-.cursor/skills/*
-.agent/*
+# AI agent / Cursor IDE (local tooling — not shared via repo)
+AGENTS.md
+CLAUDE.md
+.cursor/
+.agent/
+openspec/
 
 
 # FVM Version Cache
@@ -200,3 +203,4 @@ app.*.symbols
 .firebaserc
 **/google-services.json
 **/GoogleService-Info.plist
+

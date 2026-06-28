@@ -5,18 +5,12 @@ platform :ios, '15.0'
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
-  'Debug-mock' => :debug,
-  'Profile-mock' => :release,
-  'Release-mock' => :release,
   'Debug-dev' => :debug,
   'Profile-dev' => :release,
   'Release-dev' => :release,
   'Debug-uat' => :debug,
   'Profile-uat' => :release,
   'Release-uat' => :release,
-  'Debug-preprod' => :debug,
-  'Profile-preprod' => :release,
-  'Release-preprod' => :release,
   'Debug-prod' => :debug,
   'Profile-prod' => :release,
   'Release-prod' => :release,

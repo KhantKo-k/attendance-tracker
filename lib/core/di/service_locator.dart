@@ -1,8 +1,8 @@
-import 'package:app_starter_kit_bloc/core/navigation/app_router.dart';
-import 'package:app_starter_kit_bloc/core/network/dio_module.dart';
-import 'package:app_starter_kit_bloc/core/storage/hive/hive_registrar.g.dart';
-import 'package:app_starter_kit_bloc/core/storage/hive/schema.dart';
-import 'package:app_starter_kit_bloc/flavors.dart';
+import 'package:attendance_tracker/core/navigation/app_router.dart';
+import 'package:attendance_tracker/core/network/dio_module.dart';
+import 'package:attendance_tracker/core/storage/hive/hive_registrar.g.dart';
+import 'package:attendance_tracker/core/storage/hive/schema.dart';
+import 'package:attendance_tracker/flavors.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';

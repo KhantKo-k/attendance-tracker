@@ -1,8 +1,8 @@
 
 
-import 'package:app_starter_kit_bloc/core/error/error_reporter.dart';
-import 'package:app_starter_kit_bloc/features/localization/cache/localization_cache_manager.dart';
-import 'package:app_starter_kit_bloc/features/localization/domain/usecases/get_translations_use_case.dart';
+import 'package:attendance_tracker/core/error/error_reporter.dart';
+import 'package:attendance_tracker/features/localization/cache/localization_cache_manager.dart';
+import 'package:attendance_tracker/features/localization/domain/usecases/get_translations_use_case.dart';
 import 'package:flutter/widgets.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';

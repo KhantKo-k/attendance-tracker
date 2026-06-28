@@ -1,11 +1,18 @@
-import 'package:app_starter_kit_bloc/features/localization/presentation/extensions/localization_extension.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user.dart';
+import 'package:attendance_tracker/features/auth/domain/entities/user_role.dart';
+import 'package:attendance_tracker/features/localization/presentation/extensions/localization_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
+  const HomePage({
+    super.key,
+    required this.navigationShell,
+    required this.user,
+  });
 
-  const HomePage({super.key, required this.navigationShell});
+  final StatefulNavigationShell navigationShell;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -16,41 +23,48 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildNavigationBar(BuildContext context) {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: context.tr('productPage.products'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: context.tr('profilePage.title'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.notifications_outlined),
-          label: 'Notifications',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.note_alt_outlined),
-          label: 'Notes',
-        ),
-        BottomNavigationBarItem(icon: Icon(Icons.playlist_add), label: 'Experiment'),
-      ],
-      currentIndex: navigationShell.currentIndex,
-      onTap: (index) {
-        navigationShell.goBranch(index);
+    final isAdmin = user.role == UserRole.admin;
+    final branchOffset = isAdmin ? 0 : 2;
+    final currentIndex = navigationShell.currentIndex - branchOffset;
+
+    return NavigationBar(
+      selectedIndex: currentIndex.clamp(0, 1),
+      onDestinationSelected: (index) {
+        navigationShell.goBranch(index + branchOffset);
       },
+      destinations: isAdmin
+          ? _adminDestinations(context)
+          : _userDestinations(context),
     );
   }
-}
 
-class ChildPage extends StatelessWidget {
-  final String pageName;
+  List<NavigationDestination> _adminDestinations(BuildContext context) {
+    return [
+      NavigationDestination(
+        icon: const Icon(Icons.dashboard_outlined),
+        selectedIcon: const Icon(Icons.dashboard_rounded),
+        label: context.tr('homePage.dashboard'),
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.people_outline),
+        selectedIcon: const Icon(Icons.people_rounded),
+        label: context.tr('homePage.users'),
+      ),
+    ];
+  }
 
-  const ChildPage({super.key, required this.pageName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text(pageName));
+  List<NavigationDestination> _userDestinations(BuildContext context) {
+    return [
+      NavigationDestination(
+        icon: const Icon(Icons.home_outlined),
+        selectedIcon: const Icon(Icons.home_rounded),
+        label: context.tr('homePage.home'),
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.history),
+        selectedIcon: const Icon(Icons.history_rounded),
+        label: context.tr('homePage.history'),
+      ),
+    ];
   }
 }

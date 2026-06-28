@@ -1,10 +1,15 @@
 enum Flavor {
-  mock,
-  dev,
-  uat,
-  preprod,
-  prod,
+  local,
+  staging,
+  production,
 }
+
+/// Set at build time via `--dart-define=appFlavor=<flavor>`.
+/// Must match the `--flavor` passed to `flutter run` / `flutter build`.
+const String appFlavor = String.fromEnvironment(
+  'appFlavor',
+  defaultValue: 'local',
+);
 
 class F {
   static late final Flavor appFlavor;
@@ -13,17 +18,12 @@ class F {
 
   static String get title {
     switch (appFlavor) {
-      case Flavor.mock:
-        return 'App Starter Kit (Mock)';
-      case Flavor.dev:
-        return 'App Starter Kit (Dev)';
-      case Flavor.uat:
-        return 'App Starter Kit (UAT)';
-      case Flavor.preprod:
-        return 'App Starter Kit (Preprod)';
-      case Flavor.prod:
-        return 'App Starter Kit (Prod)';
+      case Flavor.local:
+        return 'Attendance Tracker (Local)';
+      case Flavor.staging:
+        return 'Attendance Tracker (Staging)';
+      case Flavor.production:
+        return 'Attendance Tracker (Production)';
     }
   }
-
 }

@@ -18,8 +18,7 @@ const double kWidgetBorderRadius = 18.0;
 /// 56
 const double kButtonHeight = 56.0;
 
-const BorderRadius kBorderRadius = BorderRadius.all(Radius.circular(10));
-
+const BorderRadius kBorderRadius = BorderRadius.all(Radius.circular(16));
 
 class IconSizes {
   static const double small = 24.0;

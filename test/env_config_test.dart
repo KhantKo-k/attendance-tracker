@@ -1,16 +1,16 @@
-import 'package:app_starter_kit_bloc/core/configurations/env_config.dart';
-import 'package:app_starter_kit_bloc/flavors.dart';
+import 'package:attendance_tracker/core/configurations/env_config.dart';
+import 'package:attendance_tracker/flavors.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('EnvConfig exposes tester email and deobfuscated tester password', () {
-    F.appFlavor = Flavor.mock;
+  test('EnvConfig exposes local flavor values', () {
+    F.appFlavor = Flavor.local;
     EnvConfig().init();
 
-    expect(EnvConfig.testerEmail, 'mock_tester@example.test');
-    expect(EnvConfig.testerPassword, 'MockPass1');
-    expect(EnvConfig.publicApiKey, 'mock_public_api_key');
-    expect(EnvConfig.cmsPublicApiKey, 'mock_cms_public_api_key');
-    expect(EnvConfig.cmsBaseUrl, 'https://cms.example.test');
+    expect(EnvConfig.baseUrl, 'https://dummyjson.com');
+    expect(
+      EnvConfig.firebaseUrl,
+      'https://movie-ticket-app-5123f.web.app',
+    );
   });
 }

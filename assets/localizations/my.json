@@ -1,37 +1,95 @@
 {
+  "common": {
+    "ok": "OK",
+    "retry": "ပြန်လည်ကြိုးစားရန်",
+    "cancel": "ပယ်ဖျက်ရန်",
+    "logout": "ထွက်ရန်",
+    "showPassword": "စကားဝှက် ပြရန်",
+    "hidePassword": "စကားဝှက် ဖျောက်ရန်"
+  },
+  "logoutConfirm": {
+    "title": "ထွက်မလား?",
+    "message": "အကောင့်မှ ထွက်ရန် သေချာပါသလား?"
+  },
+  "languageSelector": {
+    "english": "English",
+    "myanmar": "မြန်မာ"
+  },
   "landingPage": {
-    "appName": "Starter Kit",
-    "welcome": "သင့်ရဲ့ နောက်ထပ် ပရောဂျက်အတွက် အခြေခံ လက်စွဲ",
+    "appName": "Attendance Tracker",
+    "welcome": "အခန်းကဏ္ဍအလိုက် ဝင်ရောက်မှု/ထွက်မှု မှတ်တမ်းတင်ပါ",
     "login": "အကောင့်ဝင်ရန်",
     "register": "အကောင့်ဖွင့်ရန်"
   },
   "loginPage": {
-    "login": "အကောင့်ဝင်ရန်",
-    "welcome": "ပြန်လည်ကြိုဆိုလိုက်ပါတယ်!",
-    "username": "အသုံးပြုသူအမည်",
+    "title": "အကောင့်ဝင်ရန်",
+    "email": "အီးမေးလ်",
     "password": "လျှို့ဝှက်နံပါတ်",
-    "usernameRequired": "ကျေးဇူးပြု၍ အသုံးပြုသူအမည် ထည့်သွင်းပေးပါ",
-    "passwordRequired": "ကျေးဇူးပြု၍ လျှို့ဝှက်နံပါတ် ထည့်သွင်းပေးပါ"
+    "emailRequired": "အီးမေးလ် ထည့်သွင်းရန် လိုအပ်ပါသည်",
+    "passwordRequired": "လျှို့ဝှက်နံပါတ် ထည့်သွင်းရန် လိုအပ်ပါသည်",
+    "login": "အကောင့်ဝင်ရန်"
   },
-  "productPage": {
-    "products": "ထုတ်ကုန်များ",
-    "search": "ထုတ်ကုန်များ ရှာဖွေရန်...",
-    "productDetail": "ထုတ်ကုန်အသေးစိတ်",
-    "noProductData": "ထုတ်ကုန်အချက်အလက် မရှိပါ။"
+  "registerPage": {
+    "title": "အကောင့်ဖွင့်ရန်",
+    "fullName": "အမည်အပြည့်အစုံ",
+    "email": "အီးမေးလ်",
+    "password": "လျှို့ဝှက်နံပါတ်",
+    "nameRequired": "အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်",
+    "emailRequired": "အီးမေးလ် ထည့်သွင်းရန် လိုအပ်ပါသည်",
+    "passwordMinLength": "လျှို့ဝှက်နံပါတ်သည် အနည်းဆုံး ၆ လုံး ရှိရမည်",
+    "createAccount": "အကောင့်ဖန်တီးရန်"
   },
-  "notificationPage": {
-    "notifications": "အသိပေးချက်များ",
-    "noNotifications": "အသိပေးချက် မရှိပါ။",
-    "noNotificationsYet": "အသိပေးချက် မရှိသေးပါ။",
-    "couldNotLoadNotifications": "အသိပေးချက်များ ဖတ်မရပါ။",
+  "homePage": {
+    "dashboard": "Dashboard",
+    "users": "အသုံးပြုသူများ",
+    "home": "ပင်မစာမျက်နှာ",
+    "history": "မှတ်တမ်း"
+  },
+  "attendancePage": {
+    "title": "Attendance",
+    "currentStatus": "လက်ရှိအခြေအနေ",
+    "statusComplete": "ယနေ့ Attendance ပြီးမြောက်ပါပြီ",
+    "statusCheckedIn": "ဝင်ရောက်ပြီး",
+    "statusCheckedOut": "ထွက်ရောက်ပြီး",
+    "statusNotCheckedIn": "မဝင်ရောက်ရသေး",
+    "openCheckInWarning": "ယခင်နေ့မှ ဝင်ရောက်မှု မပြီးသေးပါ။ ထွက်ရောက်မှု လုပ်ပါ။",
+    "lastKnownLocation": "နောက်ဆုံး သိရှိသော တည်နေရာ",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
     "retry": "ပြန်လည်ကြိုးစားရန်"
   },
-  "profilePage": {
-    "title": "ကိုယ်ရေးအချက်အလက်",
-    "gender": "ကျား/မ",
-    "logout": "ထွက်ရန်",
-    "noStoredUser": "သိမ်းဆည်းထားသော ကိုယ်ရေးမရှိပါ။ ထပ်ဝင်ပါ။",
-    "loadError": "ကိုယ်ရေးအချက်အလက် ဖတ်မရပါ။"
+  "attendanceHistoryPage": {
+    "title": "ကျွန်ုပ်၏ မှတ်တမ်း",
+    "noRecords": "Attendance မှတ်တမ်း မရှိသေးပါ",
+    "checkIn": "Check In",
+    "checkOut": "Check Out",
+    "pending": "ဆိုင်းငံ့ထားသည်"
+  },
+  "adminDashboardPage": {
+    "title": "Admin Dashboard",
+    "totalUsers": "စုစုပေါင်း အသုံးပြုသူ",
+    "todayCheckIns": "ယနေ့ Check-in များ",
+    "todayCheckOuts": "ယနေ့ Check-out များ"
+  },
+  "adminUsersPage": {
+    "title": "အသုံးပြုသူများ",
+    "searchUsers": "အသုံးပြုသူများ ရှာဖွေရန်",
+    "noUsersFound": "အသုံးပြုသူ မတွေ့ပါ"
+  },
+  "adminUserHistoryPage": {
+    "title": "{name} မှတ်တမ်း",
+    "startDate": "စတင်ရက်",
+    "endDate": "ပြီးဆုံးရက်",
+    "selectDate": "ရွေးချယ်ရန် နှိပ်ပါ",
+    "clearDate": "ရက်စွဲ ဖယ်ရှားရန်",
+    "clearFilters": "Filter များ ဖယ်ရှားရန်",
+    "noRecords": "ရွေးချယ်ထားသော filter များအတွက် မှတ်တမ်း မရှိပါ",
+    "checkIn": "Check In",
+    "checkOut": "Check Out"
+  },
+  "userRole": {
+    "admin": "admin",
+    "user": "user"
   },
   "failures": {
     "badRequest": {
@@ -55,7 +113,7 @@
       "message": "စိတ်မရှိပါနဲ့၊ တစ်ခုခုမှားယွင်းနေပါသည်။"
     },
     "serviceUnavailable": {
-      "title": "အမှားအယွင်း",
+      "title": "ဝန်ဆောင်မှု မရနိုင်ပါ",
       "message": "စိတ်မရှိပါနဲ့၊ ဝန်ဆောင်မှု ယာယီပြတ်တောက်နေပါသည်။ ခဏကြာမှ ပြန်လည်ကြိုးစားပေးပါ။"
     },
     "network": {
@@ -65,6 +123,90 @@
     "unexpected": {
       "title": "အမှားအယွင်း",
       "message": "စိတ်မရှိပါနဲ့၊ တစ်ခုခုမှားယွင်းနေပါသည်။"
+    },
+    "firebaseAuth": {
+      "invalidEmail": {
+        "title": "အီးမေးလ် မမှန်ကန်ပါ",
+        "message": "ကျေးဇူးပြု၍ မှန်ကန်သော အီးမေးလ်လိပ်စာ ထည့်သွင်းပေးပါ။"
+      },
+      "userDisabled": {
+        "title": "အကောင့် ပိတ်ထားသည်",
+        "message": "ဤအကောင့်ကို ပိတ်ထားပါသည်။ အကူအညီအတွက် ဆက်သွယ်ပါ။"
+      },
+      "userNotFound": {
+        "title": "အကောင့် မတွေ့ပါ",
+        "message": "ဤအီးမေးလ်ဖြင့် အကောင့် မရှိပါ။"
+      },
+      "invalidCredential": {
+        "title": "ဝင်ရောက်မှု မအောင်မြင်ပါ",
+        "message": "အီးမေးလ် သို့မဟုတ် လျှို့ဝှက်နံပါတ် မမှန်ကန်ပါ။ ထပ်ကြိုးစားပါ။"
+      },
+      "emailAlreadyInUse": {
+        "title": "အီးမေးလ် အသုံးပြုပြီးသား",
+        "message": "ဤအီးမေးလ်ဖြင့် အကောင့် ရှိပြီးသားဖြစ်ပါသည်။"
+      },
+      "operationNotAllowed": {
+        "title": "ဝင်ရောက်ခွင့် မရပါ",
+        "message": "အီးမေးလ်/လျှို့ဝှက်နံပါတ် ဝင်ရောက်မှု ဖွင့်မထားပါ။ ဆက်သွယ်ပါ။"
+      },
+      "weakPassword": {
+        "title": "လျှို့ဝှက်နံပါတ် အားနည်းသည်",
+        "message": "လျှို့ဝှက်နံပါတ် အားနည်းလွန်းပါသည်။ အနည်းဆုံး ၆ လုံး သုံးပါ။"
+      },
+      "tooManyRequests": {
+        "title": "အကြိမ်ရေ များလွန်းသည်",
+        "message": "မအောင်မြင်သော ကြိုးစားမှု များလွန်းပါသည်။ ခဏကြာမှ ထပ်ကြိုးစားပါ။"
+      },
+      "default": {
+        "title": "အထောက်အထား အမှား",
+        "message": "အထောက်အထား အတည်ပြုမှု မအောင်မြင်ပါ။ ထပ်ကြိုးစားပါ။"
+      }
+    },
+    "firebaseFirestore": {
+      "default": {
+        "title": "ဒေတာဘေ့စ် အမှား",
+        "message": "တောင်းဆိုမှု မအောင်မြင်ပါ။ ထပ်ကြိုးစားပါ။"
+      }
+    },
+    "firebaseStorage": {
+      "default": {
+        "title": "တင်သွင်းမှု အမှား",
+        "message": "ဖိုင် တင်သွင်းမှု မအောင်မြင်ပါ။ ထပ်ကြိုးစားပါ။"
+      }
+    },
+    "location": {
+      "openSettings": "ဆက်တင်များဖွင့်ရန်",
+      "cancel": "ပယ်ဖျက်ရန်",
+      "servicesDisabled": {
+        "title": "တည်နေရာ ပိတ်ထားသည်",
+        "message": "ဝင်ရောက်မှု/ထွက်မှု မှတ်တမ်းတင်ရန် တည်နေရာ ဖွင့်ပေးပါ။"
+      },
+      "permissionDenied": {
+        "title": "တည်နေရာ ခွင့်ပြုချက် လိုအပ်သည်",
+        "message": "အက်ပ်အသုံးပြုနေစဉ် တည်နေရာ ခွင့်ပြုချက် ပေးပါ။"
+      },
+      "permissionPermanentlyDenied": {
+        "title": "တည်နေရာ ခွင့်ပြုချက် ပိတ်ထားသည်",
+        "message": "ဆက်တင်များတွင် ဤအက်ပ်အတွက် တည်နေရာ ခွင့်ပြုချက် ဖွင့်ပေးပါ။"
+      }
+    },
+    "attendance": {
+      "alreadyCheckedIn": {
+        "title": "ဝင်ရောက်ပြီးသား",
+        "message": "ထပ်ဝင်ရောက်မီ ထွက်ရောက်မှု လုပ်ပါ။"
+      },
+      "notCheckedIn": {
+        "title": "မဝင်ရောက်ရသေး",
+        "message": "ထွက်ရောက်မီ ဝင်ရောက်မှု လုပ်ရန် လိုအပ်သည်။"
+      },
+      "alreadyCheckedInToday": {
+        "title": "ယနေ့ ဝင်ရောက်ပြီး",
+        "message": "ယနေ့ ဝင်ရောက်မှု လုပ်ပြီးသားဖြစ်ပါသည်။"
+      },
+      "alreadyCheckedOutToday": {
+        "title": "ယနေ့ ထွက်ရောက်ပြီး",
+        "message": "ယနေ့ ထွက်ရောက်မှု လုပ်ပြီးသားဖြစ်ပါသည်။"
+      }
     }
   }
 }

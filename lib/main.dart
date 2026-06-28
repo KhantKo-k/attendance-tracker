@@ -1,26 +1,23 @@
 import 'dart:async';
 
-import 'package:app_starter_kit_bloc/app.dart';
-import 'package:app_starter_kit_bloc/core/configurations/env_config.dart';
-import 'package:app_starter_kit_bloc/core/di/service_locator.dart';
-import 'package:app_starter_kit_bloc/core/error/error_reporter.dart';
-import 'package:app_starter_kit_bloc/core/firebase/fcm_service.dart';
-import 'package:app_starter_kit_bloc/features/auth/domain/repositories/user_session_repository.dart';
-import 'package:app_starter_kit_bloc/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:app_starter_kit_bloc/features/localization/presentation/services/localization_service.dart';
-import 'package:app_starter_kit_bloc/flavors.dart';
-import 'package:app_starter_kit_bloc/core/logging/app_logger.dart';
+import 'package:attendance_tracker/app.dart';
+import 'package:attendance_tracker/core/configurations/env_config.dart';
+import 'package:attendance_tracker/core/di/service_locator.dart';
+import 'package:attendance_tracker/core/error/error_reporter.dart';
+import 'package:attendance_tracker/core/services/connectivity_service.dart';
+import 'package:attendance_tracker/features/attendance/domain/use_cases/attendance_use_cases.dart';
+import 'package:attendance_tracker/features/localization/presentation/services/localization_service.dart';
+import 'package:attendance_tracker/flavors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:attendance_tracker/core/firebase/fcm_service.dart' show FcmService;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import './firebase_options_dev.dart' as dev;
-import './firebase_options_mock.dart' as mock;
-import './firebase_options_preprod.dart' as preprod;
-import './firebase_options_prod.dart' as prod;
-import './firebase_options_uat.dart' as uat;
+import './firebase_options_local.dart' as local;
+import './firebase_options_production.dart' as production;
+import './firebase_options_staging.dart' as staging;
 
 void main() async {
   runZonedGuarded(
@@ -29,13 +26,11 @@ void main() async {
 
       await _initFirebase();
 
-      // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(
-      //   !kDebugMode,
+      // FirebaseMessaging.onBackgroundMessage(
+      //   firebaseMessagingBackgroundHandler,
       // );
 
       await _initFirebaseCrashlytics();
-
-      _initErrorCallbackHandler();
 
       FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
@@ -43,26 +38,18 @@ void main() async {
 
       _initEnvConfig();
 
+      await _initFcmService();
+
       await configureDependencies();
 
-      await _restorePersistedAuthSession();
+      await _configureFirestore();
+
+      _listenForConnectivitySync();
 
       await serviceLocator.get<LocalizationService>().initialize();
 
-      // Simulate app loading time
-      // await Future.delayed(const Duration(seconds: 2));
-      await _initFcmService();
-
       FlutterNativeSplash.remove();
-
-      // await dotenv.load(fileName: ".env");
-
-      // await initHiveForFlutter();
-
-      // initServiceLocator();
-
       runApp(const App());
-      unawaited(FcmService().requestPermission());
     },
     (error, stackTrace) {
       ErrorReporter().reportException(error, stackTrace);
@@ -80,44 +67,29 @@ void _initAppFlavor() {
   );
 }
 
-Future<void> _restorePersistedAuthSession() async {
-  final result = await serviceLocator.get<UserSessionRepository>().readUser();
-  result.fold(
-    (user) {
-      if (user != null) {
-        serviceLocator.get<AuthBloc>().add(
-          AuthenticatedUserRestored(user: user),
-        );
-      }
-    },
-    (failure) {
-      ErrorReporter().reportException(
-        failure.exception,
-        StackTrace.current,
-      );
-    },
+Future<void> _configureFirestore() async {
+  FirebaseFirestore.instance.settings = const Settings(
+    persistenceEnabled: true,
   );
 }
 
-void _initErrorCallbackHandler() {
-  FlutterError.onError = (FlutterErrorDetails details) {
-    AppLogger().error(
-      "At: ${details.context} \n Summary: \n${details.summary} \n Details: \n$details",
-    );
+void _listenForConnectivitySync() {
+  final connectivityService = serviceLocator.get<ConnectivityService>();
+  final syncUseCase = serviceLocator.get<SyncPendingAttendanceUseCase>();
 
-    if (!kDebugMode) {
-      FirebaseCrashlytics.instance.recordFlutterError(details);
+  connectivityService.onConnectivityChanged.listen((isOnline) async {
+    if (!isOnline) {
+      return;
     }
-  };
+    await syncUseCase();
+  });
 }
 
 Future<void> _initFirebase() async {
   final firebaseOptions = switch (appFlavor) {
-    'prod' => prod.DefaultFirebaseOptions.currentPlatform,
-    'uat' => uat.DefaultFirebaseOptions.currentPlatform,
-    'dev' => dev.DefaultFirebaseOptions.currentPlatform,
-    'mock' => mock.DefaultFirebaseOptions.currentPlatform,
-    'preprod' => preprod.DefaultFirebaseOptions.currentPlatform,
+    'production' => production.DefaultFirebaseOptions.currentPlatform,
+    'staging' => staging.DefaultFirebaseOptions.currentPlatform,
+    'local' => local.DefaultFirebaseOptions.currentPlatform,
     _ => throw UnsupportedError('Invalid flavor: $appFlavor'),
   };
   await Firebase.initializeApp(options: firebaseOptions);

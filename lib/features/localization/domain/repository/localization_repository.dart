@@ -1,4 +1,4 @@
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LocalizationRepository {

@@ -1,6 +1,6 @@
-import 'package:app_starter_kit_bloc/core/error/error_reporter.dart';
-import 'package:app_starter_kit_bloc/core/error/exception_factory.dart';
-import 'package:app_starter_kit_bloc/core/error/failures.dart';
+import 'package:attendance_tracker/core/error/error_reporter.dart';
+import 'package:attendance_tracker/core/error/exception_factory.dart';
+import 'package:attendance_tracker/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:retrofit/retrofit.dart';
 

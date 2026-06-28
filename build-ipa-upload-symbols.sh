@@ -9,13 +9,13 @@ if [ -z "$FLAVOR" ]; then
 fi
 
 # Set export method based on flavor
-# if [ ["$FLAVOR" == "prod" || "$FLAVOR" == "preprod" ]]; then
+# if [ "$FLAVOR" == "production" ]; then
 #   EXPORT_METHOD="app-store"
 # else
 #   EXPORT_METHOD="development"
 # fi
 
-DART_DEFINE_ENV="appEnv=$FLAVOR"
+DART_DEFINE_ENV="appFlavor=$FLAVOR"
 DSYM_PATH="./build/ios/archive/Runner.xcarchive/dSYMs"
 DEBUG_SYMBOLS_PATH="./debug-symbols/ios"
 EXPORT_OPTIONS_PATH="./export-options/export-options-$FLAVOR.plist"
@@ -23,7 +23,7 @@ EXPORT_OPTIONS_PATH="./export-options/export-options-$FLAVOR.plist"
 echo "🚀 Building IPA for flavor: $FLAVOR with export method: $EXPORT_METHOD"
 
 # === Build IPA ===
-if [ "$FLAVOR" == "prod" ]; then
+if [ "$FLAVOR" == "production" ]; then
   flutter build ipa \
     --flavor $FLAVOR \
     --release \
