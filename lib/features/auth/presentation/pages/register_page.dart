@@ -5,6 +5,7 @@ import 'package:attendance_tracker/features/localization/presentation/extensions
 import 'package:attendance_tracker/shared/theme/dimensions.dart';
 import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
 import 'package:attendance_tracker/shared/widgets/app_card.dart';
+import 'package:attendance_tracker/shared/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -117,12 +118,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget _buildPasswordInput(BuildContext context, bool isLoading) {
-    return TextFormField(
+    return PasswordTextField(
       controller: _passwordController,
-      decoration: InputDecoration(
-        labelText: context.tr('registerPage.password'),
-        prefixIcon: const Icon(Icons.lock_outline),
-      ),
+      labelText: context.tr('registerPage.password'),
       validator: (value) {
         if (value == null || value.length < 6) {
           return context.tr('registerPage.passwordMinLength');
@@ -130,7 +128,6 @@ class _RegisterPageState extends State<RegisterPage> {
         return null;
       },
       enabled: !isLoading,
-      obscureText: true,
     );
   }
 

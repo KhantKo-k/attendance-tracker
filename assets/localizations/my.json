@@ -3,7 +3,9 @@
     "ok": "OK",
     "retry": "ပြန်လည်ကြိုးစားရန်",
     "cancel": "ပယ်ဖျက်ရန်",
-    "logout": "ထွက်ရန်"
+    "logout": "ထွက်ရန်",
+    "showPassword": "စကားဝှက် ပြရန်",
+    "hidePassword": "စကားဝှက် ဖျောက်ရန်"
   },
   "logoutConfirm": {
     "title": "ထွက်မလား?",

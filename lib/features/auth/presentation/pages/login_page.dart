@@ -6,6 +6,7 @@ import 'package:attendance_tracker/shared/theme/dimensions.dart';
 import 'package:attendance_tracker/shared/utils/extensions/string_extensions.dart';
 import 'package:attendance_tracker/shared/widgets/app_card.dart';
 import 'package:attendance_tracker/shared/widgets/app_bar_settings_actions.dart';
+import 'package:attendance_tracker/shared/widgets/password_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -112,12 +113,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildPasswordInput(BuildContext context, bool isLoading) {
-    return TextFormField(
+    return PasswordTextField(
       controller: _passwordController,
-      decoration: InputDecoration(
-        labelText: context.tr('loginPage.password'),
-        prefixIcon: const Icon(Icons.lock_outline),
-      ),
+      labelText: context.tr('loginPage.password'),
       validator: (value) {
         if (value == null || value.isEmpty) {
           return context.tr('loginPage.passwordRequired');
@@ -126,7 +124,6 @@ class _LoginPageState extends State<LoginPage> {
       },
       onFieldSubmitted: (_) => _loginClicked(),
       enabled: !isLoading,
-      obscureText: true,
     );
   }
 

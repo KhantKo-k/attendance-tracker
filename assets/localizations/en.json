@@ -3,7 +3,9 @@
     "ok": "OK",
     "retry": "Retry",
     "cancel": "Cancel",
-    "logout": "Log out"
+    "logout": "Log out",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "logoutConfirm": {
     "title": "Log out?",
