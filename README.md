@@ -46,7 +46,7 @@ Each file only needs these two keys:
 
 ```env
 BASE_URL=https://example.com
-FIREBASE_URL=https://attendance-tracker-d696e.firebaseio.com
+FIREBASE_URL=https://your-project-id.firebaseio.com
 ```
 
 ### 3. Generate code
@@ -75,11 +75,11 @@ To generate keystores, see [`.docs/keytool-commands.md`](.docs/keytool-commands.
 
 ### 5. Set up Firebase
 
-**Firebase project (local dev):** `attendance-tracker-d696e`
+**Firebase project (local dev):** `<your-firebase-project-id>`
 
 #### 5a. Enable Firebase services
 
-In [Firebase Console](https://console.firebase.google.com/project/attendance-tracker-d696e):
+In Firebase Console (`https://console.firebase.google.com/project/<your-firebase-project-id>`):
 
 1. **Authentication** → Sign-in method → enable **Email/Password**
 2. **Firestore Database** → Create database (production mode is fine; rules come from the repo)
@@ -123,7 +123,7 @@ Repeat for `staging` or `production` if needed. This updates `lib/firebase_optio
 
 ```bash
 firebase login
-firebase use attendance-tracker-d696e
+firebase use <your-firebase-project-id>
 firebase deploy --only firestore:rules
 ```
 
@@ -212,7 +212,7 @@ flutter build ios --flavor local --dart-define=appFlavor=local
 ## Firebase deploy quick reference
 
 ```bash
-firebase use attendance-tracker-d696e
+firebase use <your-firebase-project-id>
 firebase deploy --only firestore:rules
 ```
 
